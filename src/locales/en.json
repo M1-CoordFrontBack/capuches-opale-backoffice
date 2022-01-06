@@ -113,13 +113,19 @@
   "sidebar": {
     "title": "Creative Tim",
     "shortTitle": "CT",
-    "dashboard": "dashboard",
+    "dashboard": "Requêtes",
     "icons": "Icons",
     "maps": "Maps",
     "notifications": "Notifications",
     "userProfile": "User Profile",
     "tableList": "Table List",
     "typography": "Typography",
-    "rtlSupport": "RTL Support"
+    "rtlSupport": "RTL Support",
+    "quests": "Quêtes",
+    "co_users": "Aventuriers",
+    "co_planning": "Plannings",
+    "co_equipment": "Equipement",
+    "co_consumable": "Consommables",
+    "co_finance": "Finances"
   }
 }

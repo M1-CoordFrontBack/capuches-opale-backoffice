@@ -190,14 +190,10 @@
                 }
 
                 &:before{
-                  content: " ";
+                  content: "❯";
                   position: absolute;
-                  height: 6px;
-                  width: 6px;
-                  top: 22px;
+                  top: 12px;
                   left: -4px;
-                  background: $white;
-                  border-radius: 50%;
                 }
             }
 

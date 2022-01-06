@@ -4,15 +4,32 @@
 // `background-color`.
 
 .badge {
+  background-color: #B6B6B6;
   display: inline-block;
   padding: $badge-padding-y $badge-padding-x;
-  font-size: $badge-font-size;
+  font-size: 12px;
   font-weight: $badge-font-weight;
   line-height: 1;
   text-align: center;
   white-space: nowrap;
   vertical-align: baseline;
   @include border-radius($badge-border-radius);
+  border: 1px solid #B6B6B6;
+  color: white;
+  border: none;
+  padding: 5px;
+  padding-left: 0;
+
+  border-radius: 5px;
+
+  option {
+    color: black;
+    background-color: white;
+  }
+
+  &:focus {
+    outline: none;
+  }
 
   // Empty badges collapse automatically
   &:empty {
@@ -40,8 +57,23 @@
 //
 // Contextual variations (linked badges get darker on :hover).
 
-@each $color, $value in $theme-colors {
-  .badge-#{$color} {
-    @include badge-variant($value);
-  }
+
+.badge-cyan {
+  background-color: #36b9cc;
+}
+
+.badge-lime {
+  background-color: #1cc88a;
+}
+
+.badge-red {
+  background-color: #e74a3b;
+}
+
+.badge-red-full {
+  background-color: #e74a3b;
+}
+
+.badge-yellow {
+  background-color: #f6c23e;
 }
