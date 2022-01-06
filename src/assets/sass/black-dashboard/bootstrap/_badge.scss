@@ -13,6 +13,8 @@
   white-space: nowrap;
   vertical-align: baseline;
   @include border-radius($badge-border-radius);
+  border: 1px solid #B6B6B6;
+  color: #B6B6B6;
 
   // Empty badges collapse automatically
   &:empty {
@@ -40,8 +42,29 @@
 //
 // Contextual variations (linked badges get darker on :hover).
 
-@each $color, $value in $theme-colors {
-  .badge-#{$color} {
-    @include badge-variant($value);
-  }
+
+.badge-cyan {
+  border: 1px solid #36b9cc;
+  color: #36b9cc;
+}
+
+.badge-lime {
+  border: 1px solid #1cc88a;
+  color: #1cc88a;
+}
+
+.badge-red {
+  border: 1px solid #e74a3b;
+  color: #e74a3b;
+}
+
+.badge-red-full {
+  background-color: #e74a3b;
+  color: white;
+  border: none;
+}
+
+.badge-yellow {
+  border: 1px solid #f6c23e;
+  color: #f6c23e;
 }
