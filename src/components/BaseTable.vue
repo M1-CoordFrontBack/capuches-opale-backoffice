@@ -22,13 +22,13 @@
             v-if="hasValue(item, column)"
             :width="`${column.width}`"
           >
-            <span :class="`${getSpanStyle(item, column)}`" v-if="column.name !== 'status'">
+            <span v-if="column.id !== 'status'" class="entry-title">
               <!--{{getItemIcon(item, column)}}-->
               <i v-if="typeof item[column.id.toLowerCase()] === 'number'" class="tim-icons icon-coins"></i>
               {{ itemValue(item, column) }}
             </span>
 
-            <select :class="`${getSpanStyle(item, column)}`" @click="$event.stopPropagation()" @change="changeStatus($event, item)" v-if="column.name === 'status'">
+            <select v-else :class="`${getStatusStyle(item, column)}`" @click="$event.stopPropagation()" @change="changeStatus($event, item, column)">
               <option v-for="state in listStatus" :value="state" :selected="state === itemValue(item, column)">{{ state }}</option>
             </select>
           </td>
@@ -158,28 +158,24 @@ export default {
     log(value) {
       console.log(value);
     },
-    changeStatus(event, item) {
-      item['status'] = event.target.value;
+    changeStatus(event, item, column) {
+      item[column.id] = event.target.value;
     },
-    getSpanStyle(item, column) {
+    getStatusStyle(item, column) {
       const value = item[column.id.toLowerCase()];
-      if (column.id !== "status") {
-        return "entry-title";
-      } else {
-        switch (value.toLowerCase()) {
-          case "validée":
-            return "badge badge-cyan";
-          case "en cours":
-            return "badge badge-yellow";
-          case "réussie":
-            return "badge badge-lime";
-          case "echouée":
-            return "badge badge-red";
-          case "refusée":
-            return "badge badge-red-full";
-          default:
-            return "badge";
-        }
+      switch (value.toLowerCase()) {
+        case "validée":
+          return "badge badge-cyan";
+        case "en cours":
+          return "badge badge-yellow";
+        case "réussie":
+          return "badge badge-lime";
+        case "echouée":
+          return "badge badge-red";
+        case "refusée":
+          return "badge badge-red-full";
+        default:
+          return "badge";
       }
     },
     getItemIcon(item, column) {
