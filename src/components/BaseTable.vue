@@ -9,18 +9,6 @@
         </slot>
       </tr>
     </thead>
-
-    <!--
-      <tr @click="toggle(row.id)" :class="{ opened: opened.includes(row.id) }">
-        <td>{{ row.name }}</td>
-        <td>{{ row.handle }}</td>
-      </tr>
-      <tr v-if="opened.includes(row.id)">
-        <td colspan="2">ON!</td>
-      </tr>
-
-    -->
-
     <tbody
       :class="tbodyClasses"
       v-for="(item, indexation) in data"
@@ -36,25 +24,23 @@
           >
             <span :class="`${getSpanStyle(item, column)}`">
               <!--{{getItemIcon(item, column)}}-->
+              <i v-if="typeof item[column.id.toLowerCase()] === 'number'" class="tim-icons icon-coins"></i>
               {{ itemValue(item, column) }}
             </span>
           </td>
         </slot>
+        <span v-if="opened.includes(indexation)" class="c-dropdown-open" />
+        <span v-else class="c-dropdown-closed" />
       </tr>
       <tr v-if="opened.includes(indexation)" class="expanded-row">
         <td colspan="2" style="vertical-align: top">
           <b>Description</b><br />
           {{ item.description ? item.description : "N/A" }}
         </td>
-        <!--<td style="vertical-align: top">
-          <b>Informations</b><br />
-          Durée estimée : {{ item.durée ? item.durée : "N/A" }}<br />
-          Nombre de personnes : {{ item.nombre ? item.nombre : "N/A" }}
-        </td>-->
         <td style="vertical-align: top">
           <b>Aventuriers</b><br />
-          <div v-if="item.aventuriers.length">
-            <span v-for="a in item.aventuriers" :key="a">{{ a }}<br /></span>
+          <div v-if="item.aventurers.length">
+            <span v-for="a in item.aventurers" :key="a">{{ a }}<br /></span>
           </div>
           <div v-else><span>Aucun</span></div>
         </td>
@@ -89,12 +75,16 @@
         </td>
         <td style="vertical-align: top">
           <b>Informations</b><br />
-          Durée estimée : {{ item.durée ? item.durée : "N/A" }}<br />
-          Date limite : {{ item.date ? item.date : "N/A" }}
+          Durée estimée : {{ item.duration ? item.duration : "N/A" }}<br />
+          Date limite : {{ item.expiration ? item.expiration : "N/A" }}
         </td>
         <td style="vertical-align: top">
           <b>Personnes</b><br />
-          <div class="job-level"><span class="nbr-badge">{{ item.nombre ? item.nombre : "N/A" }}</span></div>
+          <div class="job-level">
+            <span class="nbr-badge">{{
+              item.persons ? item.persons : "0"
+            }}</span>
+          </div>
         </td>
       </tr>
     </tbody>
@@ -145,7 +135,7 @@ export default {
   },
   methods: {
     hasValue(item, column) {
-      return item[column.name.toLowerCase()] !== "undefined";
+      return item[column.id.toLowerCase()] !== "undefined";
     },
     toggle(id) {
       const index = this.opened.indexOf(id);
@@ -159,11 +149,10 @@ export default {
       console.log(value);
     },
     getSpanStyle(item, column) {
-      const value = item[column.name.toLowerCase()];
-      if (column.name !== "état") {
+      const value = item[column.id.toLowerCase()];
+      if (column.id !== "status") {
         return "entry-title";
       } else {
-        console.log(value);
         switch (value.toLowerCase()) {
           case "validée":
             return "badge badge-cyan";
@@ -181,11 +170,10 @@ export default {
       }
     },
     getItemIcon(item, column) {
-      const value = item[column.name.toLowerCase()];
-      if (column.name !== "état") {
+      const value = item[column.id.toLowerCase()];
+      if (column.id !== "status") {
         return "";
       } else {
-        console.log(value);
         switch (value.toLowerCase()) {
           case "validée":
             return "$";
@@ -201,7 +189,10 @@ export default {
       }
     },
     itemValue(item, column) {
-      return item[column.name.toLowerCase()];
+      if (column.id === 'reward_gold') {
+        return item[column.id.toLowerCase()].toLocaleString();
+      }
+      return item[column.id.toLowerCase()];
     },
   },
 };
