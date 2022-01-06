@@ -24,9 +24,9 @@ const tableStatus = [
   "Echouée"
 ]
 const tableColumns = [
-  { name: "title", width: "55%", id: "title" },
-  { name: "reward", width: "30%", id: "reward_gold" },
-  { name: "status", width: "15%", id: "status" },
+  { name: "Titre", width: "55%", id: "title" },
+  { name: "Récompense", width: "30%", id: "reward_gold" },
+  { name: "État", width: "15%", id: "status" },
 ];
 const tableData = [
   {

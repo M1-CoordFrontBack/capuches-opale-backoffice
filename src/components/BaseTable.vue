@@ -29,7 +29,7 @@
             </span>
 
             <select v-else :class="`${getStatusStyle(item, column)}`" @click="$event.stopPropagation()" @change="changeStatus($event, item, column)">
-              <option v-for="state in listStatus" :value="state" :selected="state === itemValue(item, column)">{{ state }}</option>
+              <option v-for="state in listStatus" :value="state" :selected="state === itemValue(item, column)" :key="state">{{ state }}</option>
             </select>
           </td>
         </slot>
@@ -80,7 +80,8 @@
         <td style="vertical-align: top">
           <b>Informations</b><br />
           Durée estimée : {{ item.duration ? item.duration : "N/A" }}<br />
-          Date limite : {{ item.expiration ? item.expiration : "N/A" }}
+          Date limite : {{ item.expiration ? item.expiration : "N/A" }}<br />
+          Expérience : {{ item.reward_exp ? item.reward_exp : "0" }}
         </td>
         <td style="vertical-align: top">
           <b>Personnes</b><br />
