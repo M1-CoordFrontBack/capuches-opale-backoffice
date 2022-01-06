@@ -22,11 +22,15 @@
             v-if="hasValue(item, column)"
             :width="`${column.width}`"
           >
-            <span :class="`${getSpanStyle(item, column)}`">
+            <span :class="`${getSpanStyle(item, column)}`" v-if="column.name !== 'status'">
               <!--{{getItemIcon(item, column)}}-->
               <i v-if="typeof item[column.id.toLowerCase()] === 'number'" class="tim-icons icon-coins"></i>
               {{ itemValue(item, column) }}
             </span>
+
+            <select :class="`${getSpanStyle(item, column)}`" @click="$event.stopPropagation()" @change="changeStatus($event, item)" v-if="column.name === 'status'">
+              <option v-for="state in listStatus" :value="state" :selected="state === itemValue(item, column)">{{ state }}</option>
+            </select>
           </td>
         </slot>
         <span v-if="opened.includes(indexation)" class="c-dropdown-open" />
@@ -99,6 +103,12 @@ export default {
     };
   },
   props: {
+    listStatus: {
+      type: Array,
+      default: () => [],
+      description: "Table Status",
+      opened: []
+    },
     columns: {
       type: Array,
       default: () => [],
@@ -147,6 +157,9 @@ export default {
     },
     log(value) {
       console.log(value);
+    },
+    changeStatus(event, item) {
+      item['status'] = event.target.value;
     },
     getSpanStyle(item, column) {
       const value = item[column.id.toLowerCase()];

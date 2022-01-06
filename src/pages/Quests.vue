@@ -1,21 +1,28 @@
 <template>
-  <div class="row">
-    <div class="col-12">
-      <card :title="table1.title">
-        <div class="table-responsive">
-          <base-table
-            :data="table1.data"
-            :columns="table1.columns"
-            thead-classes="text-primary"
-          >
-          </base-table>
-        </div>
-      </card>
+    <div class="row">
+      <div class="col-12">
+        <card :title="table1.title">
+          <div class="table-responsive">
+            <base-table :data="table1.data"
+                        :columns="table1.columns"
+                        :listStatus="table1.listStatus"
+                        thead-classes="text-primary">
+            </base-table>
+          </div>
+        </card>
+      </div>
     </div>
-  </div>
 </template>
 <script>
 import { BaseTable } from "@/components";
+const tableStatus = [
+  "Proposée",
+  "En cours",
+  "Validée",
+  "Réussie",
+  "Refusée",
+  "Echouée"
+]
 const tableColumns = [
   { name: "title", width: "55%", id: "title" },
   { name: "reward", width: "30%", id: "reward_gold" },
@@ -143,7 +150,8 @@ export default {
         title: "Liste des quêtes",
         columns: [...tableColumns],
         data: [...tableData],
-      },
+        listStatus: [...tableStatus]
+      }
     };
   },
 };
