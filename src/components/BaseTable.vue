@@ -85,8 +85,10 @@
             :show-close="true"
           >
             <div class="modal-content-data">
+              <input class="searchbar-input" type="text" v-model="search" placeholder="Search" />
+              <br />
               <ul>
-                <li v-for="a in listAdventurers" :key="a.id">
+                <li v-for="a in searchProd(listAdventurers)" :key="a.id">
                   <table v-if="!item.aventurers.includes(a.id)">
                     <tr>
                       <td style="width: 80px">
@@ -106,6 +108,7 @@
                       </td>
                     </tr>
                   </table>
+                  <span v-else />
                 </li>
               </ul>
             </div>
@@ -199,6 +202,20 @@ export default {
       opened: [],
       searchModalVisible: false,
       filter: "artisan",
+      products: [
+        { id: 1, name: "Prod 1", category: "Cat 1", quantity: 3, status: true },
+        { id: 2, name: "Prod 2", category: "Cat 2", quantity: 5, status: true },
+        {
+          id: 3,
+          name: "Prod 3",
+          category: "Cat 1",
+          quantity: 1,
+          status: false,
+        },
+        { id: 4, name: "Prod 4", category: "Cat 3", quantity: 8, status: true },
+        { id: 5, name: "Prod 5", category: "Cat 1", quantity: 0, status: true },
+      ],
+      search: "",
     };
   },
   components: {
@@ -327,6 +344,19 @@ export default {
         return item[column.id.toLowerCase()].toLocaleString();
       }
       return item[column.id.toLowerCase()];
+    },
+    searchProd(listAdventurers) {
+      let se = [];
+      if (this.search !== "") {
+        se = this.listAdventurers.filter(
+          (p) =>
+            p.name.first.toLowerCase().includes(this.search.toLowerCase()) ||
+            p.name.last.toLowerCase().includes(this.search.toLowerCase())
+        );
+      } else {
+        se = listAdventurers;
+      }
+      return se;
     },
   },
 };
