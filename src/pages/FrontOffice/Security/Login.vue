@@ -1,10 +1,10 @@
 <template>
   <div>
-    <a class="ml-5" href="/">
-      <img src="@/assets/svg/logo.svg" alt="logo" title="Accueil" style="width: 94px" class=" ml-5 mt-4"/>
+    <a class="ml-5 d-flex" href="/">
+      <img src="@/assets/svg/logo.svg" alt="logo" title="Accueil" style="width: 94px" class="ml-5 mt-4"/>
     </a>
     <form method="post" @submit.prevent="onFormSubmit">
-      <div class="card mx-auto formContainer">
+      <div class="card mx-auto loginFormContainer">
         <div class="card-title text-center formTitle mt-4">Connexion</div>
         <div class="card-body d-flex flex-column mx-auto px-0 justify-content-around w-50">
           <div>
@@ -66,62 +66,7 @@ export default {
   },
 }
 </script>
-<style>
-
-body {
-  background-color: white;
-}
-
-.formContainer {
-  width: 714px;
-  height: 541px;
-  background: #FDF9FF;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.25);
-  border-radius: 8px;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-}
-
-.formTitle {
-  font-family: Poppins, serif;
-  font-size: 36px;
-  line-height: 54px;
-  color: #000000;
-}
-
-.formSubmit {
-  background: #A42CD6;
-  border-radius: 8px;
-}
-
-.formSubLabel {
-  font-size: 12px;
-  line-height: 18px;
-}
-
-.formInput {
-  border: 1px solid #000000;
-  box-sizing: border-box;
-  border-radius: 5px;
-  height: 52px;
-  color: #000;
-}
-
-.formInput:focus {
-  color: #000;
-}
-
-.formLabel {
-  color: #000;
-}
-
-.formSubmit, .formLabel, .formInput {
-  font-weight: normal;
-  font-size: 20px;
-  line-height: 30px;
-}
-
+<style lang="scss" scoped>
+@import "../../../assets/sass/front-office/pages/Login";
+@import "../../../assets/sass/front-office/components/SecurityForm";
 </style>
