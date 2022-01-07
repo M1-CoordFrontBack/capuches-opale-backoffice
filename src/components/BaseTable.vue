@@ -95,7 +95,7 @@
                         <i
                           class="tim-icons icon-double-right"
                           title="Ajouter"
-                          v-on:click="addAdv(item, column, a.id)"
+                          v-on:click="addAdv(item, a.id)"
                         ></i>
                       </td>
                     </tr>
@@ -120,7 +120,7 @@
                         <i
                           class="tim-icons icon-simple-remove"
                           title="Retirer"
-                          v-on:click="removeAdv(item, column, a.id)"
+                          v-on:click="removeAdv(item, a.id)"
                         ></i>
                       </td>
                     </tr>
@@ -263,10 +263,12 @@ export default {
     changeStatus(event, item, column) {
       item[column.id] = event.target.value;
     },
-    addAdv(item, column, id) {
+    addAdv(item, id) {
+      console.log(item);
+      console.log(id);
       console.log('to implement');
     },
-    removeAdv(item, column, id) {
+    removeAdv(item, id) {
       console.log('to implement');
     },
     getStatusStyle(item, column) {
