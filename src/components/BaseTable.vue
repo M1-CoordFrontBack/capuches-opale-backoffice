@@ -24,12 +24,27 @@
           >
             <span v-if="column.id !== 'status'" class="entry-title">
               <!--{{getItemIcon(item, column)}}-->
-              <i v-if="typeof item[column.id.toLowerCase()] === 'number'" class="tim-icons icon-coins"></i>
+              <i
+                v-if="typeof item[column.id.toLowerCase()] === 'number'"
+                class="tim-icons icon-coins"
+              ></i>
               {{ itemValue(item, column) }}
             </span>
 
-            <select v-else :class="`${getStatusStyle(item, column)}`" @click="$event.stopPropagation()" @change="changeStatus($event, item, column)">
-              <option v-for="state in listStatus" :value="state" :selected="state === itemValue(item, column)" :key="state">{{ state }}</option>
+            <select
+              v-else
+              :class="`${getStatusStyle(item, column)}`"
+              @click="$event.stopPropagation()"
+              @change="changeStatus($event, item, column)"
+            >
+              <option
+                v-for="state in listStatus"
+                :value="state"
+                :selected="state === itemValue(item, column)"
+                :key="state"
+              >
+                {{ state }}
+              </option>
             </select>
           </td>
         </slot>
@@ -42,9 +57,80 @@
           {{ item.description ? item.description : "N/A" }}
         </td>
         <td style="vertical-align: top">
-          <b>Aventuriers</b><br />
+          <b
+            >Aventuriers
+            <span
+              style="
+                font-size: 18px;
+                line-height: 1;
+                cursor: pointer;
+                vertical-align: middle;
+                font-weight: 400;
+              "
+              @click="searchModalVisible = true"
+              >+</span
+            ></b
+          ><br />
+          <modal
+            :show.sync="searchModalVisible"
+            class="modal-adv"
+            id="advModal"
+            :centered="false"
+            :show-close="true"
+          >
+            <table style="width: 100%">
+              <tr>
+                <th>État</th>
+                <th>Prénom</th>
+                <th>Nom</th>
+                <th>
+                  <img
+                    style="width: 20px"
+                    alt="artisan"
+                    title="Artisan"
+                    src="@/assets/img/hammer.png"
+                  />
+                </th>
+                <th>
+                  <img
+                    style="width: 20px"
+                    alt="melee"
+                    title="Mêlée"
+                    src="@/assets/img/sword.png"
+                  />
+                </th>
+                <th>
+                  <img
+                    style="width: 20px"
+                    alt="archer"
+                    title="Archer"
+                    src="@/assets/img/bow.png"
+                  />
+                </th>
+                <th>
+                  <img
+                    style="width: 20px"
+                    alt="mage"
+                    title="Mage"
+                    src="@/assets/img/wand.png"
+                  />
+                </th>
+              </tr>
+              <tr v-for="a in listAdventurers" :key="a.id">
+                <td>{{ item.aventurers.includes(a.id) ? "✓" : "✗" }}</td>
+                <td>{{ a.name.first }}</td>
+                <td>{{ a.name.last }}</td>
+                <td>{{ a.levels.artisan }}</td>
+                <td>{{ a.levels.melee }}</td>
+                <td>{{ a.levels.archer }}</td>
+                <td>{{ a.levels.mage }}</td>
+              </tr>
+            </table>
+          </modal>
           <div v-if="item.aventurers.length">
-            <span v-for="a in item.aventurers" :key="a">{{ a }}<br /></span>
+            <span v-for="a in item.aventurers" :key="a"
+              >{{ getAdvName(listAdventurers, a) }}<br
+            /></span>
           </div>
           <div v-else><span>Aucun</span></div>
         </td>
@@ -96,19 +182,31 @@
   </table>
 </template>
 <script>
+import Modal from "@/components/Modal";
+
 export default {
   name: "base-table",
   data() {
     return {
       opened: [],
+      searchModalVisible: false,
     };
+  },
+  components: {
+    Modal,
   },
   props: {
     listStatus: {
       type: Array,
       default: () => [],
       description: "Table Status",
-      opened: []
+      opened: [],
+    },
+    listAdventurers: {
+      type: Array,
+      default: () => [],
+      description: "Table Adventurers",
+      opened: [],
     },
     columns: {
       type: Array,
@@ -162,6 +260,9 @@ export default {
     changeStatus(event, item, column) {
       item[column.id] = event.target.value;
     },
+    changeAdventurer(event, item, column) {
+      item[column.id] = event.target.value;
+    },
     getStatusStyle(item, column) {
       const value = item[column.id.toLowerCase()];
       switch (value.toLowerCase()) {
@@ -198,8 +299,17 @@ export default {
         }
       }
     },
+    getAdvName(listAdventurers, id) {
+      let name = ''
+      listAdventurers.find((obj) => {
+        if (obj.id === id) {
+          name = obj.name.first + ' ' + obj.name.last;
+        }
+      });
+      return name;
+    },
     itemValue(item, column) {
-      if (column.id === 'reward_gold') {
+      if (column.id === "reward_gold") {
         return item[column.id.toLowerCase()].toLocaleString();
       }
       return item[column.id.toLowerCase()];

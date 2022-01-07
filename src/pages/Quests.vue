@@ -1,17 +1,20 @@
 <template>
-    <div class="row">
-      <div class="col-12">
-        <card :title="table1.title">
-          <div class="table-responsive">
-            <base-table :data="table1.data"
-                        :columns="table1.columns"
-                        :listStatus="table1.listStatus"
-                        thead-classes="text-primary">
-            </base-table>
-          </div>
-        </card>
-      </div>
+  <div class="row">
+    <div class="col-12">
+      <card :title="table1.title">
+        <div class="table-responsive">
+          <base-table
+            :data="table1.data"
+            :columns="table1.columns"
+            :listStatus="table1.listStatus"
+            :listAdventurers="table1.listAdventurers"
+            thead-classes="text-primary"
+          >
+          </base-table>
+        </div>
+      </card>
     </div>
+  </div>
 </template>
 <script>
 import { BaseTable } from "@/components";
@@ -21,12 +24,13 @@ const tableStatus = [
   "Validée",
   "Réussie",
   "Refusée",
-  "Echouée"
-]
+  "Echouée",
+];
 const tableColumns = [
   { name: "Titre", width: "55%", id: "title" },
   { name: "Récompense", width: "30%", id: "reward_gold" },
   { name: "État", width: "15%", id: "status" },
+  { name: "", width: "3%", id: "collapse" },
 ];
 const tableData = [
   {
@@ -38,7 +42,7 @@ const tableData = [
     duration: "3 jours",
     expiration: "01/04/22",
     persons: 3,
-    aventurers: ["Camille", "Marius", "Maël"],
+    aventurers: [1,3,4],
     description:
       "J'aimerais beaucoup aller acheter du lait pour pouvoir réaliser un mugcake au chocolat !",
     niv: {
@@ -140,6 +144,61 @@ const tableData = [
   },
 ];
 
+const tableAdventurers = [
+  {
+    id: 1,
+    name: {
+      first: "Camille",
+      last: "LeBuffle"
+    },
+    levels: {
+      artisan: "2",
+      melee: "0",
+      archer: "0",
+      mage: "22",
+    }
+  },
+  {
+    id: 2,
+    name: {
+      first: "Marius",
+      last: "LeMarsouin"
+    },
+    levels: {
+      artisan: "6",
+      melee: "1",
+      archer: "42",
+      mage: "17",
+    }
+  },
+  {
+    id: 3,
+    name: {
+      first: "Yann",
+      last: "Lantilope"
+    },
+    levels: {
+      artisan: "7",
+      melee: "4",
+      archer: "2",
+      mage: "19",
+    }
+  },
+  {
+    id: 4,
+    name: {
+      first: "Mael",
+      last: "LePingouin"
+    },
+    levels: {
+      artisan: "0",
+      melee: "0",
+      archer: "0",
+      mage: "-1",
+    }
+  }
+];
+
 export default {
   components: {
     BaseTable,
@@ -150,8 +209,9 @@ export default {
         title: "Liste des quêtes",
         columns: [...tableColumns],
         data: [...tableData],
-        listStatus: [...tableStatus]
-      }
+        listStatus: [...tableStatus],
+        listAdventurers: [...tableAdventurers]
+      },
     };
   },
 };
