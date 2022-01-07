@@ -68,8 +68,14 @@
                 font-weight: 400;
               "
               @click="searchModalVisible = true"
-              >+</span
-            ></b
+              ><i
+                class="tim-icons icon-pencil"
+                style="
+                  text-decoration: underline;
+                  font-size: 12px;
+                  vertical-align: top;
+                "
+              ></i></span></b
           ><br />
           <modal
             :show.sync="searchModalVisible"
@@ -266,10 +272,10 @@ export default {
     addAdv(item, id) {
       console.log(item);
       console.log(id);
-      console.log('to implement');
+      console.log("to implement");
     },
     removeAdv(item, id) {
-      console.log('to implement');
+      console.log("to implement");
     },
     getStatusStyle(item, column) {
       const value = item[column.id.toLowerCase()];
