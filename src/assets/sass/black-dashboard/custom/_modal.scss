@@ -37,8 +37,6 @@
   // Modal body
   // Where all modal content resides (sibling of .modal-header and .modal-footer)
   .modal-body {
-    line-height: 1.9;
-
     p{
       color: $black;
     }
@@ -127,6 +125,22 @@
         color: $white;
       }
     }
+}
+
+.modal-adv{
+  margin: 30px;
+  .modal-dialog{
+    margin: 20px auto;
+    td, th{
+      border-top: none;
+      border-bottom: 1px solid #e3e3e3;
+      font-size: 16px;
+      color: #525f7f;
+    }
+    tr:last-child > td {
+      border-bottom: none;
+    }
+  }
 }
 
 .modal-search{
