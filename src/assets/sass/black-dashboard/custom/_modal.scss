@@ -131,14 +131,35 @@
   margin: 30px;
   .modal-dialog{
     margin: 20px auto;
-    td, th{
-      border-top: none;
-      border-bottom: 1px solid #e3e3e3;
+    .modal-content-data {
+      display: inline-grid;
+      width: 48%;
+      max-height: 40vh;
+      overflow: scroll;
+
+      &:last-child {
+        margin-left: 1.5%;
+        padding-left: 1.5%;
+        border-left: 1px solid #e3e3e3;
+      }
+    }
+    table {
+      text-align: left;
+      width: 100%;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    li {
       font-size: 16px;
       color: #525f7f;
-    }
-    tr:last-child > td {
-      border-bottom: none;
+
+      img {
+        width: 20px;
+      }
     }
   }
 }

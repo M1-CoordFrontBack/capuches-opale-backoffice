@@ -78,54 +78,56 @@
             :centered="false"
             :show-close="true"
           >
-            <table style="width: 100%">
-              <tr>
-                <th>État</th>
-                <th>Prénom</th>
-                <th>Nom</th>
-                <th>
-                  <img
-                    style="width: 20px"
-                    alt="artisan"
-                    title="Artisan"
-                    src="@/assets/img/hammer.png"
-                  />
-                </th>
-                <th>
-                  <img
-                    style="width: 20px"
-                    alt="melee"
-                    title="Mêlée"
-                    src="@/assets/img/sword.png"
-                  />
-                </th>
-                <th>
-                  <img
-                    style="width: 20px"
-                    alt="archer"
-                    title="Archer"
-                    src="@/assets/img/bow.png"
-                  />
-                </th>
-                <th>
-                  <img
-                    style="width: 20px"
-                    alt="mage"
-                    title="Mage"
-                    src="@/assets/img/wand.png"
-                  />
-                </th>
-              </tr>
-              <tr v-for="a in listAdventurers" :key="a.id">
-                <td>{{ item.aventurers.includes(a.id) ? "✓" : "✗" }}</td>
-                <td>{{ a.name.first }}</td>
-                <td>{{ a.name.last }}</td>
-                <td>{{ a.levels.artisan }}</td>
-                <td>{{ a.levels.melee }}</td>
-                <td>{{ a.levels.archer }}</td>
-                <td>{{ a.levels.mage }}</td>
-              </tr>
-            </table>
+            <div class="modal-content-data">
+              <ul>
+                <li v-for="a in listAdventurers" :key="a.id">
+                  <table v-if="!item.aventurers.includes(a.id)">
+                    <tr>
+                      <td style="width: 80px">
+                        <img
+                          src="@/assets/img/hammer.png"
+                          alt="artisan"
+                          title="Artisan"
+                        />&nbsp;{{ a.levels.artisan }}
+                      </td>
+                      <td>{{ a.name.first }}&nbsp;{{ a.name.last }}</td>
+                      <td style="text-align: end">
+                        <i
+                          class="tim-icons icon-double-right"
+                          title="Ajouter"
+                          v-on:click="addAdv(item, column, a.id)"
+                        ></i>
+                      </td>
+                    </tr>
+                  </table>
+                </li>
+              </ul>
+            </div>
+            <div class="modal-content-data">
+              <ul>
+                <li v-for="a in listAdventurers" :key="a.id">
+                  <table v-if="item.aventurers.includes(a.id)">
+                    <tr>
+                      <td style="width: 80px">
+                        <img
+                          src="@/assets/img/hammer.png"
+                          alt="artisan"
+                          title="Artisan"
+                        />&nbsp;{{ a.levels.artisan }}
+                      </td>
+                      <td>{{ a.name.first }}&nbsp;{{ a.name.last }}</td>
+                      <td style="text-align: end">
+                        <i
+                          class="tim-icons icon-simple-remove"
+                          title="Retirer"
+                          v-on:click="removeAdv(item, column, a.id)"
+                        ></i>
+                      </td>
+                    </tr>
+                  </table>
+                </li>
+              </ul>
+            </div>
           </modal>
           <div v-if="item.aventurers.length">
             <span v-for="a in item.aventurers" :key="a"
@@ -190,6 +192,7 @@ export default {
     return {
       opened: [],
       searchModalVisible: false,
+      filter: "artisan",
     };
   },
   components: {
@@ -260,8 +263,11 @@ export default {
     changeStatus(event, item, column) {
       item[column.id] = event.target.value;
     },
-    changeAdventurer(event, item, column) {
-      item[column.id] = event.target.value;
+    addAdv(item, column, id) {
+      console.log('to implement');
+    },
+    removeAdv(item, column, id) {
+      console.log('to implement');
     },
     getStatusStyle(item, column) {
       const value = item[column.id.toLowerCase()];
@@ -300,10 +306,10 @@ export default {
       }
     },
     getAdvName(listAdventurers, id) {
-      let name = ''
+      let name = "";
       listAdventurers.find((obj) => {
         if (obj.id === id) {
-          name = obj.name.first + ' ' + obj.name.last;
+          name = obj.name.first + " " + obj.name.last;
         }
       });
       return name;

@@ -61,7 +61,7 @@ const tableData = [
     duration: "",
     expiration: "01/03/22",
     persons: 0,
-    aventurers: [],
+    aventurers: [1,5],
     description: "",
     niv: {
       artisan: "2",
@@ -195,6 +195,32 @@ const tableAdventurers = [
       melee: "0",
       archer: "0",
       mage: "-1",
+    }
+  },
+  {
+    id: 5,
+    name: {
+      first: "Florian",
+      last: "LePangolin"
+    },
+    levels: {
+      artisan: "90",
+      melee: "280",
+      archer: "32",
+      mage: "140",
+    }
+  },
+  {
+    id: 6,
+    name: {
+      first: "Bastien",
+      last: "Lautruche"
+    },
+    levels: {
+      artisan: "9",
+      melee: "20",
+      archer: "4",
+      mage: "923",
     }
   }
 ];
