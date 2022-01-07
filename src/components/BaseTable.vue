@@ -84,8 +84,13 @@
             :centered="false"
             :show-close="true"
           >
-            <div class="modal-content-data">
-              <input class="searchbar-input" type="text" v-model="search" placeholder="Search" />
+            <div class="modal-content-data" style="vertical-align: top">
+              <input
+                class="searchbar-input"
+                type="text"
+                v-model="search"
+                placeholder="Search"
+              />
               <br />
               <ul>
                 <li v-for="a in searchProd(listAdventurers)" :key="a.id">
