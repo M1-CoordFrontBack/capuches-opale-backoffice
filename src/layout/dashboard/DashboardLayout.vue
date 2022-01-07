@@ -19,7 +19,7 @@
       </template>
     </side-bar>
     <div class="main-panel">
-      <top-navbar></top-navbar>
+      <Header />
 
       <dashboard-content @click.native="toggleSidebar">
 
@@ -30,15 +30,16 @@
   </div>
 </template>
 <style lang="scss">
+  @import "../../assets/sass/black-dashboard.scss";
 </style>
 <script>
-import TopNavbar from "./TopNavbar.vue";
+import Header from "../../components/FrontOffice/Header";
 import ContentFooter from "./ContentFooter.vue";
 import DashboardContent from "./Content.vue";
 import MobileMenu from "./MobileMenu";
 export default {
   components: {
-    TopNavbar,
+    Header,
     ContentFooter,
     DashboardContent,
     MobileMenu
