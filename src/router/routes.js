@@ -1,4 +1,5 @@
 import DashboardLayout from "@/layout/dashboard/DashboardLayout.vue";
+import Layout from "@/layout/frontend/Layout.vue";
 // GeneralViews
 import NotFound from "@/pages/NotFoundPage.vue";
 
@@ -10,6 +11,7 @@ const Icons = () => import(/* webpackChunkName: "common" */ "@/pages/Icons.vue")
 const Quests = () => import(/* webpackChunkName: "common" */ "@/pages/Quests.vue");
 const Typography = () => import(/* webpackChunkName: "common" */ "@/pages/Typography.vue");
 const TableList = () => import(/* webpackChunkName: "common" */ "@/pages/TableList.vue");
+const CreateQuest = () => import(/* webpackChunkName: "common" */ "@/pages/FrontOffice/CreateQuest.vue");
 
 const routes = [
   {
@@ -51,6 +53,17 @@ const routes = [
         path: "table-list",
         name: "table-list",
         component: TableList
+      }
+    ]
+  },
+  {
+    path: "/create-quest",
+    component: Layout,
+    children: [
+      {
+        path: "",
+        name: "create-quest",
+        component: CreateQuest
       }
     ]
   },
