@@ -34,50 +34,12 @@
                 mon compte
               </button>
             </div>
-            <modal :show.sync="accountModalVisible"
-                   class="modal-account"
-                   id=""
-                   :centered="false"
-                   :show-close="true">
-                  <h1 slot="header">Compte</h1>
-                  <form @submit="checkForm">
-                    <div>
-                      <fieldset>
-                        <legend>Information personnel</legend>
-                        <div class="form-group">
-                          <label>Nom</label>
-                          <input class="form-control" type="text" placeholder="Nom" v-model="userLastName">
-                        </div>
-                        <div class="form-group">
-                          <label>Prénom</label>
-                          <input class="form-control" type="text" placeholder="Prénom" v-model="userFirstName">
-                        </div>
-                      </fieldset>
-                      <fieldset>
-                        <legend>Modifier Mot de passe</legend>
-                        <div class="form-group">
-                          <label>Mot de passe actuel</label>
-                          <input class="form-control" type="password" v-model="password">
-                        </div>
-                        <div class="form-group">
-                          <label>Nouveau mot de passe</label>
-                          <input class="form-control" type="password" v-model="newPassword">
-                        </div>
-                        <div class="form-group">
-                          <label>Confirmer le nouveau mot de passe</label>
-                          <input class="form-control" :class="checkConfirmPassword" type="password" v-model="confirmPassword">
-                        </div>
-                      </fieldset>
-                    </div>
-                    
-                    <ul v-if="errors.length" class="errors">
-                      <li v-for="error in errors">{{ error }}</li>
-                    </ul>
-                    
-                    <button type="submit" class="btn btn-primary">Enregistrer</button>
-                  </form>
-                  
-            </modal>
+        
+            <modal-account 
+                v-bind:accountModalVisible="accountModalVisible"
+                v-on:update:accountModalVisible="accountModalVisible = $event"
+            ></modal-account>
+           
             <div class="search-bar input-group">
               <button class="btn btn-link" id="search-button">
                 <i class="tim-icons icon-button-power"></i>
@@ -93,19 +55,15 @@
 <script>
   import { CollapseTransition } from 'vue2-transitions';
   import Modal from '@/components/Modal';
-  import { BaseAlert } from '@/components';
-  import NotificationTemplate from '../../pages/Notifications/NotificationTemplateModifProfile';
+  import ModalAccount from '../../pages/Profile/ModalAccount.vue';
 
   export default {
     components: {
       CollapseTransition,
       Modal,
-      BaseAlert
+      ModalAccount
     },
     computed: {
-      checkConfirmPassword() {
-        return {'is-invalid': this.confirmPassword && (this.newPassword !== this.confirmPassword)};
-      },
       routeName() {
         const { name } = this.$route;
         return this.capitalizeFirstLetter(name);
@@ -129,33 +87,6 @@
       };
     },
     methods: {
-      checkForm(e) {
-
-        this.errors = [];
-        
-        if(this.userFirstName && this.userLastName) {
-          this.$notify({
-            component: NotificationTemplate,
-            icon: "tim-icons icon-bell-55",
-            horizontalAlign: 'center',
-            verticalAlign: 'top',
-            type: "success",
-            timeout: 1500          
-          });
-          this.accountModalVisible = false;
-          return true;
-        }
-        
-        if(!this.userLastName) {
-          this.errors.push('Le nom est requis');
-        }
-
-        if(!this.userFirstName) {
-          this.errors.push('Le prénom est requis');
-        }
-
-        e.preventDefault();
-      },
       capitalizeFirstLetter(string) {
         return string.charAt(0).toUpperCase() + string.slice(1);
       },

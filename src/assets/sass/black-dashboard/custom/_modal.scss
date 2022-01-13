@@ -176,7 +176,7 @@
 .modal-account {
 
   .modal-dialog {
-    max-width: 700px;
+    max-width: 780px;
     transform: translateY(10vh) !important;
   }
 
@@ -194,6 +194,7 @@
         justify-content: space-around;
         width: 100%;
         fieldset {
+          width: 43%;
           div {
             display: flex;
             flex-direction: column;
