@@ -13,6 +13,10 @@ const Typography = () => import(/* webpackChunkName: "common" */ "@/pages/Typogr
 const TableList = () => import(/* webpackChunkName: "common" */ "@/pages/TableList.vue");
 const CreateQuest = () => import(/* webpackChunkName: "common" */ "@/pages/FrontOffice/CreateQuest.vue");
 
+// Security
+const Login = () => import(/* webpackChunkName: "security" */"@/pages/FrontOffice/Security/Login.vue");
+const Register = () => import(/* webpackChunkName: "security" */"@/pages/FrontOffice/Security/Register.vue");
+
 const routes = [
   {
     path: "/",
@@ -68,6 +72,8 @@ const routes = [
     ]
   },
   { path: "*", component: NotFound },
+  {path: "/login", name: "login", component: Login},
+  {path: "/register", name: "register", component: Register},
 ];
 
 /**
