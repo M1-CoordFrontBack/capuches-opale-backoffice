@@ -51,7 +51,7 @@
                 {{ itemValue(item, column) }}
               </span>
             </div>
-            
+
           </td>
           <td>
 
