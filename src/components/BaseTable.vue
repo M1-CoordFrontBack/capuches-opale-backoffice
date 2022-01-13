@@ -47,9 +47,12 @@
               </option>
             </select>
           </td>
-        </slot>
+          <td>
+
         <span v-if="opened.includes(indexation)" class="c-dropdown-open" />
         <span v-else class="c-dropdown-closed" />
+          </td>
+        </slot>
       </tr>
       <tr v-if="opened.includes(indexation)" class="expanded-row">
         <td colspan="2" style="vertical-align: top">
@@ -85,6 +88,15 @@
             :show-close="true"
           >
             <div class="modal-content-data" style="vertical-align: top">
+              <!--<select>
+              <option
+                v-for="role in listRoles"
+                :value="role.name"
+                :key="role.id"
+              >
+                <img :src="getImg(role.icon)" v-bind:alt="role.icon">
+              </option>
+            </select>-->
               <input
                 class="searchbar-input"
                 type="text"
@@ -206,20 +218,6 @@ export default {
     return {
       opened: [],
       searchModalVisible: false,
-      filter: "artisan",
-      products: [
-        { id: 1, name: "Prod 1", category: "Cat 1", quantity: 3, status: true },
-        { id: 2, name: "Prod 2", category: "Cat 2", quantity: 5, status: true },
-        {
-          id: 3,
-          name: "Prod 3",
-          category: "Cat 1",
-          quantity: 1,
-          status: false,
-        },
-        { id: 4, name: "Prod 4", category: "Cat 3", quantity: 8, status: true },
-        { id: 5, name: "Prod 5", category: "Cat 1", quantity: 0, status: true },
-      ],
       search: "",
     };
   },
@@ -237,6 +235,12 @@ export default {
       type: Array,
       default: () => [],
       description: "Table Adventurers",
+      opened: [],
+    },
+    listRoles: {
+      type: Array,
+      default: () => [],
+      description: "Table Roles",
       opened: [],
     },
     columns: {
@@ -298,6 +302,10 @@ export default {
     },
     removeAdv(item, id) {
       console.log("to implement");
+    },
+    getImg(icon) {
+      let images = require.context('../assets/img/', false, /\.png$/)
+      return images('./' + icon + ".png")
     },
     getStatusStyle(item, column) {
       const value = item[column.id.toLowerCase()];

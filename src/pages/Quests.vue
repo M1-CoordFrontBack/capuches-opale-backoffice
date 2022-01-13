@@ -8,6 +8,7 @@
             :columns="table1.columns"
             :listStatus="table1.listStatus"
             :listAdventurers="table1.listAdventurers"
+            :listRoles="table1.listRoles"
             thead-classes="text-primary"
           >
           </base-table>
@@ -225,6 +226,29 @@ const tableAdventurers = [
   }
 ];
 
+const listRoles = [
+  {
+    id: 1,
+    name: "Artisan",
+    icon: "hammer"
+  },
+  {
+    id: 2,
+    name: "Mêlée",
+    icon: "sword"
+  },
+  {
+    id: 3,
+    name: "Archer",
+    icon: "bow"
+  },
+  {
+    id: 4,
+    name: "Mage",
+    icon: "wand"
+  }
+]
+
 export default {
   components: {
     BaseTable,
@@ -236,7 +260,8 @@ export default {
         columns: [...tableColumns],
         data: [...tableData],
         listStatus: [...tableStatus],
-        listAdventurers: [...tableAdventurers]
+        listAdventurers: [...tableAdventurers],
+        listRoles: [...listRoles]
       },
     };
   },
