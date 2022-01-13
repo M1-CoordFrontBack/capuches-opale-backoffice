@@ -29,15 +29,14 @@
       <collapse-transition>
         <div class="collapse navbar-collapse show" v-show="showMenu">
           <ul class="navbar-nav" :class="$rtl.isRTL ? 'mr-auto' : 'ml-auto'">
-            <div class="search-bar input-group" @click="accountModalVisible = true">
+            <div class="search-bar input-group" @click="showAccountModal = true">
               <button class="btn btn-link" data-toggle="modal" data-target="">
                 mon compte
               </button>
             </div>
         
             <modal-account 
-                v-bind:accountModalVisible="accountModalVisible"
-                v-on:update:accountModalVisible="accountModalVisible = $event"
+                :accountModalVisible.sync="showAccountModal"
             ></modal-account>
            
             <div class="search-bar input-group">
@@ -76,7 +75,7 @@
       return {
         activeNotifications: false,
         showMenu: false,
-        accountModalVisible: false,
+        showAccountModal: false,
         searchQuery: '',
         errors: [],
         userLastName:'Gaudin',

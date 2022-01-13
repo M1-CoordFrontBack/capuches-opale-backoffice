@@ -3,7 +3,8 @@
         class="modal-account"
         id=""
         :centered="false"
-        :show-close="true">
+        :show-close="true"
+        v-on:close="closeModal">
         <h1 slot="header">Compte</h1>
         <form @submit="checkForm">
             <div>
@@ -29,14 +30,23 @@
                 <div class="form-group">
                     <label>Mot de passe actuel</label>
                     <input class="form-control" type="password" v-model="password">
+                    <div v-if="errors['password']" class="invalid-feedback">
+                        {{ errors['password'] }}
+                    </div>
                 </div>
                 <div class="form-group">
                     <label>Nouveau mot de passe</label>
                     <input class="form-control" type="password" v-model="newPassword">
+                    <div v-if="errors['newPassword']" class="invalid-feedback">
+                        {{ errors['newPassword'] }}
+                    </div>
                 </div>
                 <div class="form-group">
                     <label>Confirmer le nouveau mot de passe</label>
                     <input class="form-control" :class="checkConfirmPassword" type="password" v-model="confirmPassword">
+                    <div v-if="errors['confirmPassword']" class="invalid-feedback">
+                        {{ errors['confirmPassword'] }}
+                    </div>
                 </div>
                 </fieldset>
             </div>
@@ -57,10 +67,7 @@
       Modal
     },
     props: {
-        accountModalVisible: {
-            type: Boolean,
-            default: () => false,
-        }
+        accountModalVisible: Boolean
     },
     computed: {
       checkConfirmPassword() {
@@ -78,22 +85,26 @@
       };
     },
     methods: {
+      closeModal() {
+        this.password = '';
+        this.newPassword = '';
+        this.confirmPassword = '';
+        this.$emit('update:accountModalVisible', false);
+      },
       checkForm(e) {
 
         this.errors = [];
-        
-        if(this.userFirstName && this.userLastName) {
-          this.$notify({
-            component: NotificationTemplate,
-            icon: "tim-icons icon-bell-55",
-            horizontalAlign: "center",
-            verticalAlign: "top",
-            type: "success",
-            timeout: 1500          
-          });
-          this.accountModalVisible = false;
-          this.$emit('update:accountModalVisible', false);
-          return true;
+
+        if(this.newPassword && this.newPassword.length < 6) {
+          this.errors["newPassword"] = "le mot de passe doit contenir au moins 6 caractères";
+        }
+
+        if(this.newPassword && !this.password) {
+          this.errors["password"] = "Le mot de passe est incorrect";
+        }
+
+        if(this.newPassword !== this.confirmPassword) {
+          this.errors["confirmPassword"] = "Le mot de passe est invalide";
         }
         
         if(!this.userLastName) {
@@ -102,6 +113,22 @@
 
         if(!this.userFirstName) {
           this.errors["firstName"] = "Le prénom est requis";
+        }
+        
+        if(!this.errors["newPassword"] && !this.errors["password"] && !this.errors["confirmPassword"] && !this.errors["lastName"] && !this.errors["firstName"]) {
+
+          this.$notify({
+            component: NotificationTemplate,
+            icon: "tim-icons icon-bell-55",
+            horizontalAlign: "center",
+            verticalAlign: "top",
+            type: "success",
+            timeout: 1500          
+          });
+
+          this.closeModal();
+         
+          return true;
         }
 
         e.preventDefault();
