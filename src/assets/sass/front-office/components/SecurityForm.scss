@@ -10,6 +10,10 @@
   border-radius: 8px;
 }
 
+.formError {
+  font-size: 10px;
+}
+
 .formSubLabel {
   font-size: 12px;
   line-height: 18px;
@@ -19,7 +23,7 @@
   border: 1px solid #000000;
   box-sizing: border-box;
   border-radius: 5px;
-  height: 52px;
+  height: 40px;
   color: #000;
 }
 
@@ -34,6 +38,6 @@
 
 .formSubmit, .formLabel, .formInput {
   font-weight: normal;
-  font-size: 20px;
+  font-size: 17px;
   line-height: 30px;
 }

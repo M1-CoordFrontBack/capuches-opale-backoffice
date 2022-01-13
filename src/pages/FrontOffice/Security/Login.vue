@@ -8,18 +8,18 @@
         <div class="card-title text-center formTitle mt-4">Connexion</div>
         <div class="card-body d-flex flex-column mx-auto px-0 justify-content-around w-50">
           <div>
-            <div class="formLabel mb-2">Login</div>
+            <div class="formLabel mt-3 mb-1">Login</div>
             <input type="text" v-model="login" name="login" class="form-control formInput mx-auto" required>
-            <div v-if="errors['login']" class="mt-1 text-danger">{{ errors['login'] }}</div>
+            <div v-if="errors['login']" class="mt-1 text-danger formError">{{ errors['login'] }}</div>
           </div>
           <div>
-            <div class="formLabel mb-2">Mot de passe</div>
+            <div class="formLabel mt-4 mb-1">Mot de passe</div>
             <input type="password" v-model="password" name="password" class="form-control formInput mx-auto"
                    placeholder="••••••••••" required>
-            <div v-if="errors['password']" class="mt-1 text-danger">{{ errors['password'] }}</div>
+            <div v-if="errors['password']" class="mt-1 text-danger formError">{{ errors['password'] }}</div>
           </div>
         </div>
-        <button class="btn w-50 mx-auto formSubmit" type="submit">Se connecter</button>
+        <button class="btn w-50 mt-4 mx-auto formSubmit" type="submit">Se connecter</button>
         <router-link :to="{ name: 'register'}" class="mx-auto mt-2 small text-dark mb-5 formSubLabel">Créer un compte
         </router-link>
       </div>

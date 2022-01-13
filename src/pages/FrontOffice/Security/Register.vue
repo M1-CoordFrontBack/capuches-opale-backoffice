@@ -5,36 +5,36 @@
     </a>
     <form method="post" @submit.prevent="onFormSubmit">
       <div class="card mx-auto registerFormContainer">
-        <div class="card-title text-center formTitle mt-4">Inscription</div>
-        <div class="card-body d-flex flex-column mx-auto px-0 justify-content-around w-50">
+        <div class="card-title text-center formTitle my-3 mb-0">Inscription</div>
+        <div class="card-body d-flex flex-column mx-auto p-0 justify-content-around w-50">
           <div>
-            <div class="formLabel mb-2">Nom</div>
+            <div class="formLabel">Nom</div>
             <input type="text" v-model="name" name="name" class="form-control formInput mx-auto" required>
-            <div v-if="errors['name']" class="mt-1 text-danger">{{ errors['name'] }}</div>
+            <div v-if="errors['name']" class="mt-1 text-danger formError">{{ errors['name'] }}</div>
           </div>
           <div>
-            <div class="formLabel mb-2">Prénom</div>
+            <div class="formLabel mt-3">Prénom</div>
             <input type="text" v-model="firstName" name="firstName" class="form-control formInput mx-auto" required>
-            <div v-if="errors['firstName']" class="mt-1 text-danger">{{ errors['firstName'] }}</div>
+            <div v-if="errors['firstName']" class="mt-1 text-danger formError">{{ errors['firstName'] }}</div>
           </div>
           <div>
-            <div class="formLabel mb-2">Login</div>
+            <div class="formLabel mt-3">Login</div>
             <input type="text" v-model="login" name="login" class="form-control formInput mx-auto" required>
-            <div v-if="errors['login']" class="mt-1 text-danger">{{ errors['login'] }}</div>
+            <div v-if="errors['login']" class="mt-1 text-danger formError">{{ errors['login'] }}</div>
           </div>
           <div>
-            <div class="formLabel mb-2">Mot de passe</div>
+            <div class="formLabel mt-3">Mot de passe</div>
             <input type="password" v-model="password" name="password" class="form-control formInput mx-auto" required>
-            <div v-if="errors['password']" class="mt-1 text-danger">{{ errors['password'] }}</div>
+            <div v-if="errors['password']" class="mt-1 text-danger formError">{{ errors['password'] }}</div>
           </div>
-          <div>
-            <div class="formLabel mb-2">Confirmation de mot de passe</div>
+          <div class="mb-3">
+            <div class="formLabel mt-3">Confirmation de mot de passe</div>
             <input type="password" v-model="confirmPassword" name="confirmPassword" class="form-control formInput mx-auto" required>
-            <div v-if="errors['confirmPassword']" class="mt-1 text-danger">{{ errors['confirmPassword'] }}</div>
+            <div v-if="errors['confirmPassword']" class="mt-1 text-danger formError">{{ errors['confirmPassword'] }}</div>
           </div>
         </div>
-        <button class="btn w-50 mx-auto formSubmit" type="submit">S'inscrire</button>
-        <router-link :to="{ name: 'login'}" class="mx-auto mt-2 small text-dark mb-5 formSubLabel">Déja un compte</router-link>
+        <button class="btn w-50 mx-auto formSubmit mt-3" type="submit">S'inscrire</button>
+        <router-link :to="{ name: 'login'}" class="mx-auto mt-2 small text-dark mb-4 formSubLabel">Déja un compte</router-link>
       </div>
     </form>
   </div>
