@@ -19,15 +19,9 @@ const Register = () => import(/* webpackChunkName: "security" */"@/pages/FrontOf
 
 const routes = [
   {
-    path: "/",
+    path: "/quests",
     component: DashboardLayout,
-    redirect: "/quests",
     children: [
-      {
-        path: "dashboard",
-        name: "dashboard",
-        component: Dashboard
-      },
       {
         path: "profile",
         name: "profile",
@@ -44,7 +38,7 @@ const routes = [
         component: Icons
       },
       {
-        path: "quests",
+        path: "",
         name: "quêtes",
         component: Quests
       },
@@ -72,7 +66,7 @@ const routes = [
     ]
   },
   { path: "*", component: NotFound },
-  {path: "/login", name: "login", component: Login},
+  {path: "/", name: "login", component: Login},
   {path: "/register", name: "register", component: Register},
 ];
 
