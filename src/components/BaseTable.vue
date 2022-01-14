@@ -217,7 +217,6 @@
 </template>
 <script>
 import Modal from "@/components/Modal";
-import { getUsername } from "@/utils/api/users"
 
 export default {
   name: "base-table",
@@ -373,7 +372,6 @@ export default {
     },
     searchProd(listAdventurers) {
       let se = [];
-      getUsername();
       if (this.search !== "") {
         se = this.listAdventurers.filter(
           (p) =>

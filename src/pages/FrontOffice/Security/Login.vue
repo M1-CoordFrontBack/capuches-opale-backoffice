@@ -27,6 +27,8 @@
   </div>
 </template>
 <script>
+import { handleLogin } from "@/utils/services/connection";
+
 export default {
   props: {
     model: {
@@ -58,7 +60,7 @@ export default {
       }
 
       if (!this.errors['login'] && !this.errors['password']) {
-        console.log(this.password, this.login);
+        handleLogin(this.login, this.password);
       }
 
       e.preventDefault();
