@@ -1,4 +1,4 @@
-import { postLogin } from "../functions";
+import localStorageService from "../../services/localStorageService";
 
 // const rootUrl = process.env.BACKEND
 // const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxMSwibG9naW4iOiJtYWVsIiwibm9tIjoiZGVib24iLCJwcmVub20iOiJtYWVsIiwiYXJnZW50IjpudWxsLCJtb3RfZGVfcGFzc2UiOiIkMmIkMTAkSVY4SzdLaTBjOEt2VnRJaDFSd1pCZXdIQlhhSzYyZWdYZ3pLWUpjSllLV3VPbnRQemFyYWkiLCJyb2xlX2lkIjoyfSwiaWF0IjoxNjQyMTY3MTQzLCJleHAiOjE2NDIxNzQzNDN9.v35VtmXIgSPujk6GxUmz82UDDgMBgUGpRuPWXMXjK_8";
@@ -18,6 +18,7 @@ export const handleLogin = (login, password) => {
       }
 
       response.json().then(function (data) {
+        localStorageService.setAccessToken(data.token);
         return data.token;
       });
     })
