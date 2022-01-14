@@ -15,7 +15,7 @@
   }
 
   .expanded-row td {
-    // border-top: none;
+    border-top: $table-border-width dotted #1e1e2f;
     padding-bottom: 20px;
   }
 
