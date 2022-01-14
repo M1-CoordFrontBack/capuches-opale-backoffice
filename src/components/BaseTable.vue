@@ -31,21 +31,27 @@
               {{ itemValue(item, column) }}
             </span>
 
-            <select
-              v-else
+            <div v-else>
+              <select v-if="assistant"
               :class="`${getStatusStyle(item, column)}`"
               @click="$event.stopPropagation()"
               @change="changeStatus($event, item, column)"
-            >
-              <option
-                v-for="state in listStatus"
-                :value="state"
-                :selected="state === itemValue(item, column)"
-                :key="state"
               >
-                {{ state }}
-              </option>
-            </select>
+                <option
+                  v-for="state in listStatus"
+                  :value="state"
+                  :selected="state === itemValue(item, column)"
+                  :key="state"
+                >
+                  {{ state }}
+                </option>
+              </select>
+
+              <span v-else :class="`${getStatusStyle(item, column)} badge-front`">
+                {{ itemValue(item, column) }}
+              </span>
+            </div>
+            
           </td>
           <td>
 
@@ -62,7 +68,7 @@
         <td style="vertical-align: top">
           <b
             >Aventuriers
-            <span
+            <span v-if="assistant"
               style="
                 font-size: 18px;
                 line-height: 1;
@@ -225,6 +231,12 @@ export default {
     Modal,
   },
   props: {
+    assistant: {
+      type: Boolean,
+      default: () => false,
+      description: "assistant",
+      opened: []
+    },
     listStatus: {
       type: Array,
       default: () => [],

@@ -9,6 +9,7 @@ const Profile = () => import(/* webpackChunkName: "common" */ "@/pages/Profile.v
 const Notifications = () => import(/* webpackChunkName: "common" */"@/pages/Notifications.vue");
 const Icons = () => import(/* webpackChunkName: "common" */ "@/pages/Icons.vue");
 const Quests = () => import(/* webpackChunkName: "common" */ "@/pages/Quests.vue");
+const FrontQuests = () => import(/* webpackChunkName: "common" */ "@/pages/FrontOffice/FrontQuests.vue");
 const Typography = () => import(/* webpackChunkName: "common" */ "@/pages/Typography.vue");
 const TableList = () => import(/* webpackChunkName: "common" */ "@/pages/TableList.vue");
 const CreateQuest = () => import(/* webpackChunkName: "common" */ "@/pages/FrontOffice/CreateQuest.vue");
@@ -55,13 +56,18 @@ const routes = [
     ]
   },
   {
-    path: "/create-quest",
+    path: "/front",
     component: Layout,
     children: [
       {
-        path: "",
+        path: "create-quest",
         name: "create-quest",
         component: CreateQuest
+      },
+      {
+        path: "quests",
+        name: "front-quests",
+        component: FrontQuests
       }
     ]
   },
