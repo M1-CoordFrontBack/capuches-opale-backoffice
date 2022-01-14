@@ -2,7 +2,7 @@
   <div class="header">
     <h4 class="title">Quête</h4>
     <div class="navmenu">
-      <span class="menu" @click="showAccountModal = true" data-toggle="modal">mon compte</span>
+      <span class="menu" @click="showAccountModal = true" data-toggle="modal">Mon compte</span>
       <modal-account :accountModalVisible.sync="showAccountModal"></modal-account>
       <router-link to="/" class="menu">Liste des quêtes</router-link>
       <router-link to="/create-quest" class="menu"><button>Ajouter une quête</button></router-link>
