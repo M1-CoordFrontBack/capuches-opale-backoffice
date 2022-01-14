@@ -37,8 +37,6 @@
   // Modal body
   // Where all modal content resides (sibling of .modal-header and .modal-footer)
   .modal-body {
-    line-height: 1.9;
-
     p{
       color: $black;
     }
@@ -129,10 +127,111 @@
     }
 }
 
+.modal-adv{
+  padding: 0 10% 0 10%;
+  .modal-dialog{
+    margin: 20px auto;
+    height: 650px;
+    max-width: 700px;
+    .modal-content-data {
+      display: inline-grid;
+      width: 48%;
+      max-height: 40vh;
+      overflow: scroll;
+
+      &:last-child {
+        margin-left: 1.5%;
+        padding-left: 1.5%;
+        border-left: 1px solid #e3e3e3;
+      }
+    }
+    table {
+      text-align: left;
+      width: 100%;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    li {
+      font-size: 16px;
+      color: #525f7f;
+
+      img {
+        width: 20px;
+      }
+    }
+  }
+}
+
+.searchbar-input {
+  border: 1px solid gray;
+  border-radius: 4px;
+  padding: 4px;
+  color: gray;
+}
+
+.modal-account {
+
+  .modal-dialog {
+    max-width: 780px;
+    transform: translateY(10vh) !important;
+  }
+
+  .errors li {
+    color: red;
+  }
+
+  .modal-body {
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      div {
+        display: flex;
+        justify-content: space-around;
+        width: 100%;
+        fieldset {
+          width: 43%;
+          div {
+            display: flex;
+            flex-direction: column;
+            input {
+              color: black;
+            }
+          }
+        }
+      }
+      button {
+        margin: 20px;
+        width: 50%;
+      }
+    }
+
+  }
+
+  .modal-header .close{
+    color: black;
+  }
+
+  h1 {
+    width: 100%;
+    color: black;
+    text-align: center;
+    font-size: 2em;
+  }
+
+  label, .invalid-feedback {
+    text-align: start;
+  }
+  
+}
+
 .modal-search{
   .modal-dialog{
     margin: 20px auto;
-    max-width: 650px;
     input{
       border: none;
       font-size: 17px;

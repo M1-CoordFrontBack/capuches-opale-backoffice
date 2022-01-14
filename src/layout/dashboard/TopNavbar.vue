@@ -29,6 +29,16 @@
       <collapse-transition>
         <div class="collapse navbar-collapse show" v-show="showMenu">
           <ul class="navbar-nav" :class="$rtl.isRTL ? 'mr-auto' : 'ml-auto'">
+            <div class="search-bar input-group" @click="showAccountModal = true">
+              <button class="btn btn-link" data-toggle="modal">
+                mon compte
+              </button>
+            </div>
+        
+            <modal-account 
+                :accountModalVisible.sync="showAccountModal"
+            ></modal-account>
+           
             <div class="search-bar input-group">
               <button class="btn btn-link" id="search-button">
                 <i class="tim-icons icon-button-power"></i>
@@ -37,17 +47,20 @@
           </ul>
         </div>
       </collapse-transition>
+      
     </div>
   </nav>
 </template>
 <script>
   import { CollapseTransition } from 'vue2-transitions';
   import Modal from '@/components/Modal';
+  import ModalAccount from '../../pages/Profile/ModalAccount.vue';
 
   export default {
     components: {
       CollapseTransition,
-      Modal
+      Modal,
+      ModalAccount
     },
     computed: {
       routeName() {
@@ -62,8 +75,14 @@
       return {
         activeNotifications: false,
         showMenu: false,
-        searchModalVisible: false,
-        searchQuery: ''
+        showAccountModal: false,
+        searchQuery: '',
+        errors: [],
+        userLastName:'',
+        userFirstName:'',
+        password:'',
+        newPassword:'',
+        confirmPassword:''
       };
     },
     methods: {

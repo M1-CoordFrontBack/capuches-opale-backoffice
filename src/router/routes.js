@@ -1,4 +1,5 @@
 import DashboardLayout from "@/layout/dashboard/DashboardLayout.vue";
+import Layout from "@/layout/frontend/Layout.vue";
 // GeneralViews
 import NotFound from "@/pages/NotFoundPage.vue";
 
@@ -10,12 +11,17 @@ const Icons = () => import(/* webpackChunkName: "common" */ "@/pages/Icons.vue")
 const Quests = () => import(/* webpackChunkName: "common" */ "@/pages/Quests.vue");
 const Typography = () => import(/* webpackChunkName: "common" */ "@/pages/Typography.vue");
 const TableList = () => import(/* webpackChunkName: "common" */ "@/pages/TableList.vue");
+const CreateQuest = () => import(/* webpackChunkName: "common" */ "@/pages/FrontOffice/CreateQuest.vue");
+
+// Security
+const Login = () => import(/* webpackChunkName: "security" */"@/pages/FrontOffice/Security/Login.vue");
+const Register = () => import(/* webpackChunkName: "security" */"@/pages/FrontOffice/Security/Register.vue");
 
 const routes = [
   {
     path: "/",
     component: DashboardLayout,
-    redirect: "/dashboard",
+    redirect: "/quests",
     children: [
       {
         path: "dashboard",
@@ -54,7 +60,20 @@ const routes = [
       }
     ]
   },
+  {
+    path: "/create-quest",
+    component: Layout,
+    children: [
+      {
+        path: "",
+        name: "create-quest",
+        component: CreateQuest
+      }
+    ]
+  },
   { path: "*", component: NotFound },
+  {path: "/login", name: "login", component: Login},
+  {path: "/register", name: "register", component: Register},
 ];
 
 /**
