@@ -20,28 +20,21 @@ export const get = (url, token) => {
     });
 };
 
-/*---------------*/
-//
-// LOGIN METHOD
-//
-/*---------------*/
-export const apiLogin = (url, login, password) => {
-  const data = { login: login, mot_de_passe: password };
-
+export const post = (url, data) => {
   fetch(url, {
     method: "post",
     headers: { Accept: "application/json", "Content-Type": "application/json" },
     body: JSON.stringify(data),
   })
     .then(function (response) {
-      console.log(response);
       if (response.status !== 200) {
         console.log("Request failed. Status code: " + response.status);
         return;
       }
 
       response.json().then(function (data) {
-        return data;
+        console.log(data);
+        return data.body?.token ? data.body.token : "No data";
       });
     })
     .catch(function (err) {
