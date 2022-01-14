@@ -8,7 +8,7 @@
         <div class="card-title text-center formTitle mt-4">Connexion</div>
         <div class="card-body d-flex flex-column mx-auto px-0 justify-content-around w-50">
           <div>
-            <div class="formLabel mt-3 mb-1">Login</div>
+            <div class="formLabel mt-3 mb-1">Identifiant</div>
             <input type="text" v-model="login" name="login" class="form-control formInput mx-auto" required>
             <div v-if="errors['login']" class="mt-1 text-danger formError">{{ errors['login'] }}</div>
           </div>
