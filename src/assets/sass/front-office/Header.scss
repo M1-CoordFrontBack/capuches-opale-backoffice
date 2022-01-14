@@ -1,0 +1,40 @@
+.header {
+  height: 100px;
+  margin-top: 30px;
+
+  img {
+    width: 50px;
+    height: auto;
+    float: left;
+    margin-left: 5%;
+    vertical-align: middle;
+  }
+
+  .navmenu {
+    float: right;
+    margin-right: 5%;
+    width: 50%;
+
+    .menu {
+      padding: 3%;
+      line-height: 50px;
+      color: #000000;
+    }
+
+    img {
+      width: 20px;
+      height: auto;
+      float: right;
+      margin-top: 15px;
+    }
+
+    button {
+      border-radius: 8px;
+      background-color: #A42CD6;
+      color: #ffffff;
+      border-style: none;
+    }
+
+  }
+
+}

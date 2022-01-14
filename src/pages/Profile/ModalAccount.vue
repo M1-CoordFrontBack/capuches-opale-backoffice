@@ -77,8 +77,8 @@
     data() {
       return {
         errors: [],
-        userLastName:'Gaudin',
-        userFirstName:'Marius',
+        userLastName:'',
+        userFirstName:'',
         password:'',
         newPassword:'',
         confirmPassword:''

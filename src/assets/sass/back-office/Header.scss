@@ -1,0 +1,47 @@
+.header {
+  height: 100px;
+  margin-top: 30px;
+
+  .title {
+    float: left;
+    margin-left: 3%;
+    vertical-align: middle;
+    color: #ffffff;
+    margin-top: 1em;
+  }
+
+  .navmenu {
+    float: right;
+    margin-right: 5%;
+    width: 50%;
+    text-align: center;
+
+    .menu {
+      padding: 3%;
+      line-height: 50px;
+      color: #ffffff;
+    }
+
+    img {
+      width: 20px;
+      height: auto;
+      float: right;
+      margin-top: 15px;
+      -webkit-filter: grayscale(1) invert(1);
+      filter: grayscale(1) invert(1);
+    }
+
+    button {
+      border-radius: 8px;
+      background-color: #A42CD6;
+      color: #ffffff;
+      border-style: none;
+    }
+
+    span {
+      cursor: pointer;
+    }
+
+  }
+
+}

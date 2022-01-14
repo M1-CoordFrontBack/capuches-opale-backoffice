@@ -24,17 +24,35 @@
           >
             <span v-if="column.id !== 'status'" class="entry-title">
               <!--{{getItemIcon(item, column)}}-->
-              <i v-if="typeof item[column.id.toLowerCase()] === 'number'" class="tim-icons icon-coins"></i>
+              <i
+                v-if="typeof item[column.id.toLowerCase()] === 'number'"
+                class="tim-icons icon-coins"
+              ></i>
               {{ itemValue(item, column) }}
             </span>
 
-            <select v-else :class="`${getStatusStyle(item, column)}`" @click="$event.stopPropagation()" @change="changeStatus($event, item, column)">
-              <option v-for="state in listStatus" :value="state" :selected="state === itemValue(item, column)" :key="state">{{ state }}</option>
+            <select
+              v-else
+              :class="`${getStatusStyle(item, column)}`"
+              @click="$event.stopPropagation()"
+              @change="changeStatus($event, item, column)"
+            >
+              <option
+                v-for="state in listStatus"
+                :value="state"
+                :selected="state === itemValue(item, column)"
+                :key="state"
+              >
+                {{ state }}
+              </option>
             </select>
           </td>
-        </slot>
+          <td>
+
         <span v-if="opened.includes(indexation)" class="c-dropdown-open" />
         <span v-else class="c-dropdown-closed" />
+          </td>
+        </slot>
       </tr>
       <tr v-if="opened.includes(indexation)" class="expanded-row">
         <td colspan="2" style="vertical-align: top">
@@ -42,9 +60,105 @@
           {{ item.description ? item.description : "N/A" }}
         </td>
         <td style="vertical-align: top">
-          <b>Aventuriers</b><br />
+          <b
+            >Aventuriers
+            <span
+              style="
+                font-size: 18px;
+                line-height: 1;
+                cursor: pointer;
+                vertical-align: middle;
+                font-weight: 400;
+              "
+              @click="searchModalVisible = true"
+              ><i
+                class="tim-icons icon-pencil"
+                style="
+                  text-decoration: underline;
+                  font-size: 12px;
+                  vertical-align: top;
+                "
+              ></i></span></b
+          ><br />
+          <modal
+            :show.sync="searchModalVisible"
+            class="modal-adv"
+            id="advModal"
+            :centered="false"
+            :show-close="true"
+          >
+            <div class="modal-content-data" style="vertical-align: top">
+              <!--<select>
+              <option
+                v-for="role in listRoles"
+                :value="role.name"
+                :key="role.id"
+              >
+                <img :src="getImg(role.icon)" v-bind:alt="role.icon">
+              </option>
+            </select>-->
+              <input
+                class="searchbar-input"
+                type="text"
+                v-model="search"
+                placeholder="Search"
+              />
+              <br />
+              <ul>
+                <li v-for="a in searchProd(listAdventurers)" :key="a.id">
+                  <table v-if="!item.aventurers.includes(a.id)">
+                    <tr>
+                      <td style="width: 80px">
+                        <img
+                          src="@/assets/img/hammer.png"
+                          alt="artisan"
+                          title="Artisan"
+                        />&nbsp;{{ a.levels.artisan }}
+                      </td>
+                      <td>{{ a.name.first }}&nbsp;{{ a.name.last }}</td>
+                      <td style="text-align: end">
+                        <i
+                          class="tim-icons icon-double-right"
+                          title="Ajouter"
+                          v-on:click="addAdv(item, a.id)"
+                        ></i>
+                      </td>
+                    </tr>
+                  </table>
+                  <span v-else />
+                </li>
+              </ul>
+            </div>
+            <div class="modal-content-data">
+              <ul>
+                <li v-for="a in listAdventurers" :key="a.id">
+                  <table v-if="item.aventurers.includes(a.id)">
+                    <tr>
+                      <td style="width: 80px">
+                        <img
+                          src="@/assets/img/hammer.png"
+                          alt="artisan"
+                          title="Artisan"
+                        />&nbsp;{{ a.levels.artisan }}
+                      </td>
+                      <td>{{ a.name.first }}&nbsp;{{ a.name.last }}</td>
+                      <td style="text-align: end">
+                        <i
+                          class="tim-icons icon-simple-remove"
+                          title="Retirer"
+                          v-on:click="removeAdv(item, a.id)"
+                        ></i>
+                      </td>
+                    </tr>
+                  </table>
+                </li>
+              </ul>
+            </div>
+          </modal>
           <div v-if="item.aventurers.length">
-            <span v-for="a in item.aventurers" :key="a">{{ a }}<br /></span>
+            <span v-for="a in item.aventurers" :key="a"
+              >{{ getAdvName(listAdventurers, a) }}<br
+            /></span>
           </div>
           <div v-else><span>Aucun</span></div>
         </td>
@@ -96,19 +210,38 @@
   </table>
 </template>
 <script>
+import Modal from "@/components/Modal";
+
 export default {
   name: "base-table",
   data() {
     return {
       opened: [],
+      searchModalVisible: false,
+      search: "",
     };
+  },
+  components: {
+    Modal,
   },
   props: {
     listStatus: {
       type: Array,
       default: () => [],
       description: "Table Status",
-      opened: []
+      opened: [],
+    },
+    listAdventurers: {
+      type: Array,
+      default: () => [],
+      description: "Table Adventurers",
+      opened: [],
+    },
+    listRoles: {
+      type: Array,
+      default: () => [],
+      description: "Table Roles",
+      opened: [],
     },
     columns: {
       type: Array,
@@ -162,6 +295,18 @@ export default {
     changeStatus(event, item, column) {
       item[column.id] = event.target.value;
     },
+    addAdv(item, id) {
+      console.log(item);
+      console.log(id);
+      console.log("to implement");
+    },
+    removeAdv(item, id) {
+      console.log("to implement");
+    },
+    getImg(icon) {
+      let images = require.context('../assets/img/', false, /\.png$/)
+      return images('./' + icon + ".png")
+    },
     getStatusStyle(item, column) {
       const value = item[column.id.toLowerCase()];
       switch (value.toLowerCase()) {
@@ -198,11 +343,33 @@ export default {
         }
       }
     },
+    getAdvName(listAdventurers, id) {
+      let name = "";
+      listAdventurers.find((obj) => {
+        if (obj.id === id) {
+          name = obj.name.first + " " + obj.name.last;
+        }
+      });
+      return name;
+    },
     itemValue(item, column) {
-      if (column.id === 'reward_gold') {
+      if (column.id === "reward_gold") {
         return item[column.id.toLowerCase()].toLocaleString();
       }
       return item[column.id.toLowerCase()];
+    },
+    searchProd(listAdventurers) {
+      let se = [];
+      if (this.search !== "") {
+        se = this.listAdventurers.filter(
+          (p) =>
+            p.name.first.toLowerCase().includes(this.search.toLowerCase()) ||
+            p.name.last.toLowerCase().includes(this.search.toLowerCase())
+        );
+      } else {
+        se = listAdventurers;
+      }
+      return se;
     },
   },
 };

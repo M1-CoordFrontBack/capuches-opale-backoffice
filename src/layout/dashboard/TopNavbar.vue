@@ -30,7 +30,7 @@
         <div class="collapse navbar-collapse show" v-show="showMenu">
           <ul class="navbar-nav" :class="$rtl.isRTL ? 'mr-auto' : 'ml-auto'">
             <div class="search-bar input-group" @click="showAccountModal = true">
-              <button class="btn btn-link" data-toggle="modal" data-target="">
+              <button class="btn btn-link" data-toggle="modal">
                 mon compte
               </button>
             </div>
@@ -78,8 +78,8 @@
         showAccountModal: false,
         searchQuery: '',
         errors: [],
-        userLastName:'Gaudin',
-        userFirstName:'Marius',
+        userLastName:'',
+        userFirstName:'',
         password:'',
         newPassword:'',
         confirmPassword:''
