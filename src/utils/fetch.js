@@ -1,8 +1,14 @@
-export const get = (url) => {
-  fetch(url)
+export const get = (url, token) => {
+  fetch(url, {
+    method: "get",
+    headers: new Headers({
+      Authorization:
+        "Bearer " + token,
+    }),
+  })
     .then(function (response) {
       if (response.status !== 200) {
-        console.log("fréro, Request failed. Status code: " + response.status);
+        console.log("Request failed. Status code: " + response.status);
         return;
       }
 
@@ -11,6 +17,6 @@ export const get = (url) => {
       });
     })
     .catch(function (err) {
-      console.log("bro, Fetch Error :-S", err);
+      console.log("Fetch Error : ", err);
     });
 };
