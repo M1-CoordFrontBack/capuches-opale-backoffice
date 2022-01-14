@@ -217,7 +217,7 @@
 </template>
 <script>
 import Modal from "@/components/Modal";
-import { getUsername } from "@/utils/api/users"
+import { getUsername } from "@/utils/services/users"
 
 export default {
   name: "base-table",
