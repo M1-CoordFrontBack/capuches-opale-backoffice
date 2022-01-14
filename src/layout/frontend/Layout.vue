@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div>
+    <div class="container-fluid">
       <Header />
-      <CreateQuest />
+      <router-view></router-view>
     </div>
   </div>
 </template>
@@ -20,7 +20,7 @@
 <script>
   import Header from "../../components/FrontOffice/Header";
   import CreateQuest from "../../pages/FrontOffice/CreateQuest";
-export default {
+  export default {
   components: {
     Header,
     CreateQuest

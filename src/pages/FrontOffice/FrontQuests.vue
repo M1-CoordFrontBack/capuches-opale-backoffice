@@ -1,15 +1,14 @@
 <template>
-  <div class="row">
+  <div class="row front-quests">
     <div class="col-12">
-      <card :title="table1.title">
+      <card :title="table1.title" class="card-white">
         <div class="table-responsive">
           <base-table
             :data="table1.data"
             :columns="table1.columns"
-            :listStatus="table1.listStatus"
             :listAdventurers="table1.listAdventurers"
             :listRoles="table1.listRoles"
-            :assistant="true"
+            :assistant="false"
             thead-classes="text-primary"
           >
           </base-table>
@@ -20,14 +19,7 @@
 </template>
 <script>
 import { BaseTable } from "@/components";
-const tableStatus = [
-  "Proposée",
-  "En cours",
-  "Validée",
-  "Réussie",
-  "Refusée",
-  "Echouée",
-];
+
 const tableColumns = [
   { name: "Titre", width: "55%", id: "title" },
   { name: "Récompense", width: "30%", id: "reward_gold" },
@@ -35,25 +27,6 @@ const tableColumns = [
   { name: "", width: "3%", id: "collapse" },
 ];
 const tableData = [
-  {
-    id: 1,
-    title: "Acheter du lait",
-    reward_gold: 23,
-    reward_exp: 200,
-    status: "Proposée",
-    duration: "3 jours",
-    expiration: "01/04/22",
-    persons: 3,
-    aventurers: [1,3,4],
-    description:
-      "J'aimerais beaucoup aller acheter du lait pour pouvoir réaliser un mugcake au chocolat !",
-    niv: {
-      artisan: "2",
-      melee: "0",
-      archer: "0",
-      mage: "22",
-    },
-  },
   {
     id: 2,
     title: "Sauver un chaton",
@@ -78,24 +51,6 @@ const tableData = [
     reward_gold: 23000000,
     reward_exp: 2,
     status: "Echouée",
-    duration: "",
-    expiration: "01/03/22",
-    persons: 0,
-    aventurers: [],
-    description: "",
-    niv: {
-      artisan: "2",
-      melee: "0",
-      archer: "0",
-      mage: "22",
-    },
-  },
-  {
-    id: 4,
-    title: "Tuer un dragon",
-    reward_gold: 2,
-    reward_exp: 0,
-    status: "Validée",
     duration: "",
     expiration: "01/03/22",
     persons: 0,
@@ -260,7 +215,6 @@ export default {
         title: "Liste des quêtes",
         columns: [...tableColumns],
         data: [...tableData],
-        listStatus: [...tableStatus],
         listAdventurers: [...tableAdventurers],
         listRoles: [...listRoles]
       },
@@ -269,3 +223,6 @@ export default {
 };
 </script>
 <style></style>
+<style lang="scss" scoped>
+  @import "../../assets/sass/front-office/FrontQuest";
+</style>

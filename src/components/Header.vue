@@ -4,8 +4,8 @@
     <div class="navmenu">
       <span class="menu" @click="showAccountModal = true" data-toggle="modal">Mon compte</span>
       <modal-account :accountModalVisible.sync="showAccountModal"></modal-account>
-      <router-link to="/" class="menu">Liste des quêtes</router-link>
-      <router-link to="/create-quest" class="menu"><button>Ajouter une quête</button></router-link>
+      <router-link to="/quests" class="menu">Liste des quêtes</router-link>
+      <router-link to="/front/create-quest" class="menu"><button>Ajouter une quête</button></router-link>
       <router-link to="/"><img src="../assets/img/logout.png" alt="logout" /></router-link>
     </div>
   </div>

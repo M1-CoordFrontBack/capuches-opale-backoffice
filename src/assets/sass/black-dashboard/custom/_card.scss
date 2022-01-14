@@ -1,4 +1,4 @@
-.card{
+.card {
     background: $card-black-background;
     border: 0;
     position: relative;
@@ -65,10 +65,32 @@
     }
 
     &.card-white{
-      background: $white;
+      background: #FDF9FF;
+      tr th, tr .entry-title {
+        color: black;
+        text-align: left;
+      }
 
+      tr td {
+        text-align: left;
+        border-top: .5px solid black;
+      }
+
+      .c-dropdown-open, .c-dropdown-closed {
+        color: black;
+      }
+
+      .expanded-row td {
+        color: black;
+      }
+
+      .nbr-badge {
+        color: white;
+      }
+    
       .card-title{
         color: $black;
+        text-align: left;
       }
       .card-category, .stats{
         color: $card-stats-gray;
@@ -230,3 +252,4 @@
     }
   }
 }
+
