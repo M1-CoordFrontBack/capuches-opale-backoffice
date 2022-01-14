@@ -14,4 +14,3 @@ export const get = (url) => {
         console.log("Fetch Error :-S", err);
       });
   };
-  
