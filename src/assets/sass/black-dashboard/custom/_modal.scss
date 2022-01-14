@@ -173,6 +173,62 @@
   color: gray;
 }
 
+.modal-account {
+
+  .modal-dialog {
+    max-width: 780px;
+    transform: translateY(10vh) !important;
+  }
+
+  .errors li {
+    color: red;
+  }
+
+  .modal-body {
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      div {
+        display: flex;
+        justify-content: space-around;
+        width: 100%;
+        fieldset {
+          width: 43%;
+          div {
+            display: flex;
+            flex-direction: column;
+            input {
+              color: black;
+            }
+          }
+        }
+      }
+      button {
+        margin: 20px;
+        width: 50%;
+      }
+    }
+
+  }
+
+  .modal-header .close{
+    color: black;
+  }
+
+  h1 {
+    width: 100%;
+    color: black;
+    text-align: center;
+    font-size: 2em;
+  }
+
+  label, .invalid-feedback {
+    text-align: start;
+  }
+  
+}
+
 .modal-search{
   .modal-dialog{
     margin: 20px auto;

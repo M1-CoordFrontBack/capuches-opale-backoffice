@@ -34,7 +34,7 @@
           </div>
         </div>
         <button class="btn w-50 mx-auto formSubmit mt-3" type="submit">S'inscrire</button>
-        <router-link :to="{ name: 'login'}" class="mx-auto mt-2 small text-dark mb-4 formSubLabel">Déja un compte</router-link>
+        <router-link :to="{ name: 'login'}" class="mx-auto mt-2 small text-dark mb-4 formSubLabel">J'ai déjà un compte</router-link>
       </div>
     </form>
   </div>
