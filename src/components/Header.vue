@@ -6,13 +6,14 @@
       <modal-account :accountModalVisible.sync="showAccountModal"></modal-account>
       <router-link to="/quests" class="menu">Liste des quêtes</router-link>
       <router-link to="/front/create-quest" class="menu"><button>Ajouter une quête</button></router-link>
-      <router-link to="/"><img src="../assets/img/logout.png" alt="logout" /></router-link>
+      <a @click.prevent="logout" href=""><img src="../assets/img/logout.png" alt="logout" /></a>
     </div>
   </div>
 </template>
 <script>
   import Modal from '@/components/Modal';
   import ModalAccount from './../pages/Profile/ModalAccount.vue';
+  import localStorageService from "../services/localStorageService";
 
   export default {
     components: {
@@ -23,7 +24,13 @@
       return {
         showAccountModal: false,
       };
-    }
+    },
+    methods: {
+      logout() {
+        localStorageService.clearToken();
+        this.$router.push({ name: 'login'});
+      }
+    },
   };
 </script>
 <style lang="scss" scoped>
