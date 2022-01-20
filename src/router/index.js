@@ -1,5 +1,6 @@
 import VueRouter from "vue-router";
 import routes from "./routes";
+import localStorageService from "@/services/localStorageService";
 
 // configure router
 const router = new VueRouter({
@@ -12,6 +13,34 @@ const router = new VueRouter({
       return { x: 0, y: 0 }
     }
   }
+});
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    const token = localStorageService.getAccessToken();
+    if (!token) {
+      next({
+        name: 'login',
+        query: {
+          nextUrl: 'login'
+        }
+      })
+    }
+
+    const parsedJwt = localStorageService.parseToken(token);
+    if (parsedJwt !== undefined) {
+      if (Math.floor(Date.now() / 1000) > parsedJwt.exp) {
+        localStorageService.clearToken();
+        next({
+          name: 'Login',
+          query: {
+            nextUrl: 'Login'
+          }
+        })
+      }
+    }
+  }
+  next();
 });
 
 export default router;

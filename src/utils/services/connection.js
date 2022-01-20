@@ -1,3 +1,5 @@
+import localStorageService from "../../services/localStorageService";
+
 export const handleLogin = (login, password) => {
   const data = { login: login, mot_de_passe: password };
   fetch("https://redpegasus-micro-auth.herokuapp.com/api/login", {
@@ -12,6 +14,7 @@ export const handleLogin = (login, password) => {
       }
 
       response.json().then(function (data) {
+        localStorageService.setAccessToken(data.token);
         return data.token;
       });
     })
