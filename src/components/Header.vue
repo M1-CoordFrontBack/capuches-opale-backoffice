@@ -4,7 +4,7 @@
     <div class="navmenu">
       <span class="menu" @click="showAccountModal = true" data-toggle="modal">Mon compte</span>
       <modal-account :accountModalVisible.sync="showAccountModal"></modal-account>
-      <router-link to="/quests" class="menu">Liste des quêtes</router-link>
+      <a @click.prevent="homePage" href="" class="menu">Liste des quêtes</a>
       <router-link to="/front/create-quest" class="menu"><button>Ajouter une quête</button></router-link>
       <a @click.prevent="logout" href=""><img src="../assets/img/logout.png" alt="logout" /></a>
     </div>
@@ -29,6 +29,22 @@
       logout() {
         localStorageService.clearToken();
         this.$router.push({ name: 'login'});
+      },
+      homePage(){
+        if (this.assistant){
+          this.$router.push({ name: 'quêtes'});
+        } else {
+          this.$router.push({ name: 'front-quests'});
+        }
+      }
+    },
+    computed: {
+      assistant() {
+        const currentUser = localStorageService.getUser()
+        if(currentUser && currentUser.role_id === 3) {
+          return true
+        }
+        return false
       }
     },
   };
