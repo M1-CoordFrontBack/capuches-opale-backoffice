@@ -37,7 +37,7 @@
             <td>
               <input type="number" id="numberPeople" class="number" v-model="numberPeople" /> Nombre de personnes minimum &nbsp;<span class="error" v-if="numberPeopleError">Nombre de personnes requis.</span><br />
             </td>
-            <td>
+            <td v-if="assistant">
               <label>Commanditaire</label>&nbsp;<span class="error" v-if="clientError">Commanditaire requis.</span><br />
               <input class="client" list="clients" placeholder="Commanditaire" v-model="client" />
               <datalist id="clients">
@@ -80,6 +80,7 @@
 </style>
 
 <script>
+  import localStorageService from "@/services/localStorageService";
   export default {
     data() {
       return {
@@ -123,6 +124,15 @@
             name: 'titi'
           }
         ]
+      }
+    },
+    computed: {
+      assistant() {
+        const currentUser = localStorageService.getUser()
+        if(currentUser && currentUser.role_id === 3) {
+          return true
+        }
+        return false
       }
     },
     methods: {

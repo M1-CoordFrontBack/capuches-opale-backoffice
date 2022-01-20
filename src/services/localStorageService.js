@@ -14,6 +14,14 @@ function getUserId() {
     return localStorage.getItem('userId');
 }
 
+function setUser(user) {
+  localStorage.setItem('user', JSON.stringify(user))
+}
+
+function getUser() {
+  return JSON.parse(localStorage.getItem('user'))
+}
+
 function clearToken() {
     localStorage.removeItem('access_token');
     localStorage.removeItem('refresh_token');
@@ -36,5 +44,7 @@ export default {
     getRefreshToken,
     getUserId,
     clearToken,
-    parseToken
+    parseToken,
+    setUser,
+    getUser
 }
