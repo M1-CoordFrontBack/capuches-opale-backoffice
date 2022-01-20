@@ -11,7 +11,8 @@ function getRefreshToken() {
 }
 
 function getUserId() {
-    return localStorage.getItem('userId');
+    localStorage.getItem('userId');
+    return 131;
 }
 
 function clearToken() {

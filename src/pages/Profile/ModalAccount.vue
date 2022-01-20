@@ -59,6 +59,7 @@
   import { BaseAlert } from '@/components';
   import Modal from '@/components/Modal';
   import NotificationTemplate from '../Notifications/NotificationTemplateModifProfile';
+  import { updateUser, getCurrentUser } from '../../utils/services/users';
 
   export default {
     name:"modal-account",
@@ -83,6 +84,12 @@
         newPassword:'',
         confirmPassword:''
       };
+    },
+    mounted () {
+      getCurrentUser().then(user => {
+        this.userLastName = user.nom;
+        this.userFirstName = user.prenom;
+      });
     },
     methods: {
       closeModal() {
@@ -116,6 +123,8 @@
         }
         
         if(!this.errors["newPassword"] && !this.errors["password"] && !this.errors["confirmPassword"] && !this.errors["lastName"] && !this.errors["firstName"]) {
+
+          updateUser(this.newPassword, this.userFirstName, this.userLastName);
 
           this.$notify({
             component: NotificationTemplate,

@@ -1,11 +1,26 @@
-import { get } from '../functions';
+import { get, put } from '../functions';
+import localStorageService from "@/services/localStorageService";
 
 const rootUrl = process.env.BACKEND_API_URL_USERS
-const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxMSwibG9naW4iOiJtYWVsIiwibm9tIjoiZGVib24iLCJwcmVub20iOiJtYWVsIiwiYXJnZW50IjpudWxsLCJtb3RfZGVfcGFzc2UiOiIkMmIkMTAkSVY4SzdLaTBjOEt2VnRJaDFSd1pCZXdIQlhhSzYyZWdYZ3pLWUpjSllLV3VPbnRQemFyYWkiLCJyb2xlX2lkIjoyfSwiaWF0IjoxNjQyMTY3MTQzLCJleHAiOjE2NDIxNzQzNDN9.v35VtmXIgSPujk6GxUmz82UDDgMBgUGpRuPWXMXjK_8";
-// expiration : 2h
 
 export const getUsername = () => {
-    const data = get('https://redpegasus-micro-auth.herokuapp.com/api/user/11', token);
+    const data = get(`${rootUrl}user/${11}`, token);
     console.log(data);
     return data;
+}
+
+export const getCurrentUser = () => {
+    localStorageService.setAccessToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxMzEsImxvZ2luIjoiVGVzdCIsIm5vbSI6IlRPVE8iLCJwcmVub20iOiJUVVRVIiwiYXJnZW50IjpudWxsLCJtb3RfZGVfcGFzc2UiOiIkMmIkMTAkVmw5ZXgyaXVQT1hwRS9tWU0vZ3Y0T0tGM0ppby5Nb1pDcEhneVhjUGJDVG5IZHdNcGguZ0ciLCJyb2xlX2lkIjoyfSwiaWF0IjoxNjQyNjczMTIxLCJleHAiOjE2NDI2ODAzMjF9.uik1veIJRvSYakxjNOm8WDh4gd47dmwkgmlxP3RZW_0");
+    return get(`https://redpegasus-micro-auth.herokuapp.com/api/user/${localStorageService.getUserId()}`, localStorageService.getAccessToken());
+}
+
+export const updateUser = (password, firstName, lastName) => {
+    const data = {
+        "mot_de_passe": password,
+        "nom": lastName,
+        "prenom": firstName
+      };
+    let id = localStorageService.getUserId(),
+        token = localStorageService.getAccessToken();
+    put(`https://redpegasus-micro-auth.herokuapp.com/api/user/${id}`, data, token);
 }
