@@ -14,7 +14,7 @@ export const get = async (url, token) => {
     .catch(function (err) {
       console.log("Fetch Error : ", err);
     });
-  
+
   return await result.json();
 };
 
@@ -42,20 +42,24 @@ export const post = (url, data) => {
 export const put = (url, data, token) => {
   fetch(url, {
     method: "put",
-    headers: { Accept: "application/json", "Content-Type": "application/json", Authorization: "Bearer " + token },
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + token,
+    },
     body: JSON.stringify(data),
   })
-  .then(function (response) {
+    .then(function (response) {
+      if (response.status !== 200) {
+        console.log("Request failed. Status code: " + response.status);
+        return;
+      }
 
-    if (response.status !== 200) {
-      console.log("Request failed. Status code: " + response.status);
-      return;
-    }
-
-    response.json().then(function (data) {
-      return data.body;
+      response.json().then(function (data) {
+        return data.body;
+      });
+    })
+    .catch(function (err) {
+      console.error("PUT Error : ", err);
     });
-  }).catch(function (err) {
-    console.error("PUT Error : ", err);
-  })
-}
+};

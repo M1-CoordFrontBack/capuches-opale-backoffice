@@ -44,6 +44,11 @@ const routes = [
         component: Quests
       },
       {
+        path: "quests",
+        name: "quêtes",
+        component: Quests
+      },
+      {
         path: "typography",
         name: "typography",
         component: Typography
