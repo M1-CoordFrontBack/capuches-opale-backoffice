@@ -73,7 +73,7 @@ const routes = [
     ]
   },
   { path: "*", component: NotFound },
-  {path: "/", name: "login", component: Login},
+  {path: "/", name: "login", component: Login, props: true},
   {path: "/register", name: "register", component: Register},
 ];
 

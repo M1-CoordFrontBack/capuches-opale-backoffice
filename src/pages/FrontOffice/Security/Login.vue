@@ -28,6 +28,7 @@
 </template>
 <script>
 import { handleLogin } from "@/utils/services/connection";
+import NotificationTemplate from "@/pages/Notifications/NotificationTemplateInscription";
 
 export default {
   props: {
@@ -46,7 +47,16 @@ export default {
       },
       login: null,
       password: null,
+      notifications: {
+        topCenter: false
+      },
+      referer: this.$route.query.rf,
     }
+  },
+  mounted() {
+      if (this.referer) {
+        this.notifyVue('top', 'right');
+      }
   },
   methods: {
     onFormSubmit: function (e) {
@@ -64,6 +74,16 @@ export default {
       }
 
       e.preventDefault();
+    },
+    notifyVue(verticalAlign, horizontalAlign) {
+      this.$notify({
+        component: NotificationTemplate,
+        icon: "tim-icons icon-check-2",
+        horizontalAlign: horizontalAlign,
+        verticalAlign: verticalAlign,
+        type: "success",
+        timeout: 3500
+      });
     }
   },
 }
