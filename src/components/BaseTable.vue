@@ -19,7 +19,6 @@
           <td
             v-for="(column, index) in columns"
             :key="index"
-            v-if="hasValue(item, column)"
             :width="`${column.width}`"
           >
             <span v-if="column.id !== 'status'" class="entry-title">
@@ -217,7 +216,6 @@
 </template>
 <script>
 import Modal from "@/components/Modal";
-import { getUsername } from "@/utils/services/users"
 
 export default {
   name: "base-table",
