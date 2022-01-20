@@ -41,7 +41,8 @@
 </template>
 <script>
 import {post} from '@/utils/functions';
-// import {handleLogin} from "@/utils/services/connection"; -- TODO : try to connect after register
+import router from "@/router";
+
 export default {
   props: {
     model: {
@@ -93,7 +94,7 @@ export default {
       if (!this.errors['name'] && !this.errors['firstName'] && !this.errors['login'] && !this.errors['password'] && !this.errors['confirmPassword']) {
         let data = {login: this.login, mot_de_passe: this.password, nom: this.name, prenom: this.firstName};
         post('https://redpegasus-micro-auth.herokuapp.com/api/sign-up', data);
-        this.$router.push({ name: 'login'})
+        router.push({ name: "login", query: { rf: 'r' }});
       }
 
       e.preventDefault();
