@@ -11,12 +11,11 @@ function getRefreshToken() {
 }
 
 function getUserId() {
-    localStorage.getItem('userId');
-    return 131;
+    return getUser().id;
 }
 
 function setUser(user) {
-  localStorage.setItem('user', JSON.stringify(user))
+    localStorage.setItem('user', JSON.stringify(user))
 }
 
 function getUser() {
