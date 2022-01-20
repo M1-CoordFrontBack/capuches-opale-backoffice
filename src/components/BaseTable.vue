@@ -21,7 +21,7 @@
             :key="index"
             :width="`${column.width}`"
           >
-            <span v-if="column.id !== 'status'" class="entry-title">
+            <span v-if="column.id !== 'status_actuel'" class="entry-title">
               <!--{{getItemIcon(item, column)}}-->
               <i
                 v-if="typeof item[column.id.toLowerCase()] === 'number'"
@@ -109,7 +109,7 @@
                 placeholder="Search"
               />
               <br />
-              <ul>
+              <!--<ul>
                 <li v-for="a in searchProd(listAdventurers)" :key="a.id">
                   <table v-if="!item.aventurers.includes(a.id)">
                     <tr>
@@ -132,12 +132,12 @@
                   </table>
                   <span v-else />
                 </li>
-              </ul>
+              </ul>-->
             </div>
             <div class="modal-content-data">
-              <ul>
+              <!--<ul>
                 <li v-for="a in listAdventurers" :key="a.id">
-                  <table v-if="item.aventurers.includes(a.id)">
+                  <table v-if="item.aventurers?.includes(a.id)">
                     <tr>
                       <td style="width: 80px">
                         <img
@@ -157,7 +157,7 @@
                     </tr>
                   </table>
                 </li>
-              </ul>
+              </ul>-->
             </div>
           </modal>
           <div v-if="item.aventurers.length">
@@ -198,15 +198,15 @@
         </td>
         <td style="vertical-align: top">
           <b>Informations</b><br />
-          Durée estimée : {{ item.duration ? item.duration : "N/A" }}<br />
-          Date limite : {{ item.expiration ? item.expiration : "N/A" }}<br />
-          Expérience : {{ item.reward_exp ? item.reward_exp : "0" }}
+          Durée estimée : {{ item.duree ? item.duree : "N/A" }}<br />
+          Date limite : {{ item.date_limite ? item.date_limite : "N/A" }}<br />
+          Expérience : {{ item.recompense_exp ? item.recompense_exp : "0" }}
         </td>
         <td style="vertical-align: top">
           <b>Personnes</b><br />
           <div class="job-level">
             <span class="nbr-badge">{{
-              item.persons ? item.persons : "0"
+              item.nbr_personne_minimum ? item.nbr_personne_minimum : "0"
             }}</span>
           </div>
         </td>
