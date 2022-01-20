@@ -7,4 +7,3 @@ dist/
 **.css.map
 **/sass/*/*.css
 **/sass/*.css
-package-lock.json
