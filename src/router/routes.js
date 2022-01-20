@@ -4,7 +4,6 @@ import Layout from "@/layout/frontend/Layout.vue";
 import NotFound from "@/pages/NotFoundPage.vue";
 
 // Admin pages
-const Dashboard = () => import(/* webpackChunkName: "dashboard" */"@/pages/Dashboard.vue");
 const Profile = () => import(/* webpackChunkName: "common" */ "@/pages/Profile.vue");
 const Notifications = () => import(/* webpackChunkName: "common" */"@/pages/Notifications.vue");
 const Icons = () => import(/* webpackChunkName: "common" */ "@/pages/Icons.vue");
@@ -22,6 +21,7 @@ const routes = [
   {
     path: "/quests",
     component: DashboardLayout,
+    meta: { requiresAuth: true },
     children: [
       {
         path: "profile",
@@ -58,6 +58,7 @@ const routes = [
   {
     path: "/front",
     component: Layout,
+    meta: { requiresAuth: true },
     children: [
       {
         path: "create-quest",
