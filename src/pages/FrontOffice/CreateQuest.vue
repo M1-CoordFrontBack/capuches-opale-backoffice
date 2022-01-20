@@ -82,7 +82,7 @@
 <script>
   import localStorageService from "@/services/localStorageService";
   import { post } from "@/utils/functions";
-  import { getClients } from "@/utils/services/users"
+  import { getClients } from "@/utils/services/users";
   export default {
     data() {
       return {
@@ -129,9 +129,9 @@
     methods: {
       homePage(){
         if (this.assistant){
-          this.$router.push({ name: 'quêtes'});
+          this.$router.push({ name: 'quêtes', query: { rf: 'r' }});
         } else {
-          this.$router.push({ name: 'front-quests'});
+          this.$router.push({ name: 'front-quests', query: { rf: 'r' }});
         }
       },
       onChange(e) {

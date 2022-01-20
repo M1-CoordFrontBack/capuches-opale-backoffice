@@ -1,5 +1,5 @@
 <template>
-  <div>Compte créé avec succès, vous pouvez maintenant vous connecter !</div>
+  <div>Quête créée avec succès !</div>
 </template>
 
 <script>
