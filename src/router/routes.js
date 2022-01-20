@@ -45,6 +45,11 @@ const routes = [
         props: true
       },
       {
+        path: "quests",
+        name: "quêtes",
+        component: Quests
+      },
+      {
         path: "typography",
         name: "typography",
         component: Typography
