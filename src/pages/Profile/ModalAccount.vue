@@ -28,13 +28,6 @@
                 <fieldset>
                 <legend>Modifier Mot de passe</legend>
                 <div class="form-group">
-                    <label>Mot de passe actuel</label>
-                    <input class="form-control" type="password" v-model="password">
-                    <div v-if="errors['password']" class="invalid-feedback">
-                        {{ errors['password'] }}
-                    </div>
-                </div>
-                <div class="form-group">
                     <label>Nouveau mot de passe</label>
                     <input class="form-control" type="password" v-model="newPassword">
                     <div v-if="errors['newPassword']" class="invalid-feedback">
@@ -78,11 +71,10 @@
     data() {
       return {
         errors: [],
-        userLastName:'',
-        userFirstName:'',
-        password:'',
-        newPassword:'',
-        confirmPassword:''
+        userLastName: null,
+        userFirstName: null,
+        newPassword: null,
+        confirmPassword: null
       };
     },
     mounted () {
@@ -93,7 +85,6 @@
     },
     methods: {
       closeModal() {
-        this.password = '';
         this.newPassword = '';
         this.confirmPassword = '';
         this.$emit('update:accountModalVisible', false);
@@ -102,12 +93,9 @@
 
         this.errors = [];
 
+        console.log(this.newPassword.length);
         if(this.newPassword && this.newPassword.length < 6) {
           this.errors["newPassword"] = "le mot de passe doit contenir au moins 6 caractères";
-        }
-
-        if(this.newPassword && !this.password) {
-          this.errors["password"] = "Le mot de passe est incorrect";
         }
 
         if(this.newPassword !== this.confirmPassword) {
@@ -122,7 +110,7 @@
           this.errors["firstName"] = "Le prénom est requis";
         }
         
-        if(!this.errors["newPassword"] && !this.errors["password"] && !this.errors["confirmPassword"] && !this.errors["lastName"] && !this.errors["firstName"]) {
+        if(!this.errors["newPassword"] && !this.errors["confirmPassword"] && !this.errors["lastName"] && !this.errors["firstName"]) {
 
           updateUser(this.newPassword, this.userFirstName, this.userLastName);
 
