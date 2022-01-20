@@ -24,7 +24,7 @@ function getUser() {
 
 function clearToken() {
     localStorage.removeItem('access_token');
-    localStorage.removeItem('refresh_token');
+    localStorage.removeItem('user');
 }
 
 function parseToken(token) {
