@@ -1,4 +1,5 @@
 import localStorageService from "../../services/localStorageService";
+import router from "@/router";
 
 export const handleLogin = (login, password) => {
   const data = { login: login, mot_de_passe: password };
@@ -15,6 +16,14 @@ export const handleLogin = (login, password) => {
 
       response.json().then(function (data) {
         localStorageService.setAccessToken(data.token);
+        const parsedToken = localStorageService.parseToken(data.token)
+        const user = parsedToken.user ? parsedToken.user : null
+        localStorageService.setUser(user)
+        if(user && user.role_id === 3) {
+          router.push({ name: 'quêtes'})
+        } else {
+          router.push({ name: 'front-quests'})
+        }
         return data.token;
       });
     })
