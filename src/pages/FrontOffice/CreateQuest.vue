@@ -148,9 +148,8 @@
         return await promise;
       },
       checkForm() {
-        if (!this.assistant) {
-          this.client = localStorageService.getUser().id;
-        }
+        if (!this.assistant) this.client = localStorageService.getUser().id;
+        else this.client = this.selectedID;
 
         if (this.title && this.description && this.reward && (this.days || this.hours) && this.date && this.numberPeople && this.client && (this.melee || this.archer || this.mage || this.artisan)) {
           if (!this.days) this.days = 0;
@@ -179,7 +178,25 @@
           this.clientError === false &&
           this.levelError === false) {
           const time = this.days * 1440 + this.hours * 60;
-          const data = {title: this.title, description: this.description, recompense: this.reward, duree: time, date_limite: this.date, nbr_personne: this.numberPeople};
+          const data = {titre: this.title, description: this.description, recompense: this.reward, duree: time, date_limite: this.date, nbr_personne_minimum: this.numberPeople, id_client: this.client,
+            metiers: [
+              {
+                id_metier_classe: 1,
+                exp_recommande: this.melee
+              },
+              {
+                id_metier_classe: 2,
+                exp_recommande: this.archer
+              },
+              {
+                id_metier_classe: 3,
+                exp_recommande: this.mage
+              },
+              {
+                id_metier_classe: 4,
+                exp_recommande: this.artisan
+              }
+            ]};
           post('https://quiet-fortress-49850.herokuapp.com/api/requete', data);
           this.homePage();
         }
