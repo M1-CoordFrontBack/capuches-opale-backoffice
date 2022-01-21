@@ -133,6 +133,15 @@ const listRoles = [
   },
 ];
 
+const tableStatus = [
+  "Proposée",
+  "En cours",
+  "Validée",
+  "Réussie",
+  "Refusée",
+  "Echouée"
+];
+
 export default {
   components: {
     BaseTable,
@@ -145,11 +154,15 @@ export default {
         data: [],
         listAdventurers: [...tableAdventurers],
         listRoles: [...listRoles],
+        listStatus: [...tableStatus]
       },
     };
   },
   mounted() {
-    getQuests().then(data => this.table1.data = data);
+    getQuests().then(data => {
+      this.table1.data = data;
+      console.log(data);
+    });
   }
 };
 </script>

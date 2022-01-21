@@ -160,10 +160,9 @@
               </ul>-->
             </div>
           </modal>
-          <div v-if="item.hasOwnProperty('aventurers') && item.aventurers.length">
-            <span v-for="a in item.aventurers" :key="a"
-              >{{ getAdvName(listAdventurers, a) }}<br
-            /></span>
+          <div v-if="item.hasOwnProperty('aventuriers') && item.aventuriers.length">
+            <span v-for="a in item.aventuriers" :key="a.id"
+              >{{ a.nom }}<br/></span>
           </div>
           <div v-else><span>Aucun</span></div>
         </td>
@@ -216,6 +215,7 @@
 </template>
 <script>
 import Modal from "@/components/Modal";
+import { updateStatus } from "@/utils/services/quests.js";
 
 export default {
   name: "base-table",
@@ -304,7 +304,12 @@ export default {
       console.log(value);
     },
     changeStatus(event, item, column) {
-      item[column.id] = event.target.value;
+      updateStatus(item.id, event.target.value.toLowerCase()).then(res => {
+        if(res) {
+          item[column.id] = event.target.value;
+        }
+      })
+      
     },
     addAdv(item, id) {
       console.log(item);
@@ -319,22 +324,28 @@ export default {
       return images('./' + icon + ".png")
     },
     getStatusStyle(item, column) {
-      const value = item[column.id.toLowerCase()];
-      switch (value.toLowerCase()) {
-        case "validée":
-          return "badge badge-cyan";
-        case "en cours":
-          return "badge badge-yellow";
-        case "réussie":
-          return "badge badge-lime";
-        case "echouée":
-          return "badge badge-red";
-        case "refusée":
-          return "badge badge-red-full";
-        default:
-          return "badge";
+      if(column.hasOwnProperty("id") && column.id) {
+        const value = item[column.id.toLowerCase()];
+        if(value) {
+          switch (value.toLowerCase()) {
+            case "validée":
+              return "badge badge-cyan";
+            case "en cours":
+              return "badge badge-yellow";
+            case "réussie":
+              return "badge badge-lime";
+            case "echouée":
+              return "badge badge-red";
+            case "refusée":
+              return "badge badge-red-full";
+            default:
+              return "badge";
+          }
+        }
+         
       }
-    },*/
+     
+    },
     getItemIcon(item, column) {
       const value = item[column.id.toLowerCase()];
       if (column.id !== "status_actuel") {
@@ -353,15 +364,6 @@ export default {
             return "=";
         }
       }
-    },
-    getAdvName(listAdventurers, id) {
-      let name = "";
-      listAdventurers.find((obj) => {
-        if (obj.id === id) {
-          name = obj.name.first + " " + obj.name.last;
-        }
-      });
-      return name;
     },
     itemValue(item, column) {
       if (column.id === "recompense") {
