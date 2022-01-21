@@ -16,8 +16,14 @@
           </tr>
           <tr>
             <td>
-              <label>Récompense</label>&nbsp;<span class="error" v-if="rewardError">Récompense requise.</span><br />
-              <input type="number" id="reward" v-model="reward" />
+              <label class="reward">Récompense</label>&nbsp;<span class="error" v-if="rewardError">Récompense requise.</span>
+              <label>Récompense exp</label>&nbsp;<span class="error" v-if="rewardExpError">Récompense exp requise.</span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <input type="number" id="reward" class="reward" v-model="reward" />
+              <input type="number" id="rewardExp" v-model="rewardExp" />
             </td>
           </tr>
           <tr>
@@ -90,6 +96,7 @@
         titleError: false,
         descriptionError: false,
         rewardError: false,
+        rewardExpError: false,
         estimateDateError: false,
         limitDateError: false,
         numberPeopleError: false,
@@ -98,6 +105,7 @@
         title: null,
         description: null,
         reward: null,
+        rewardExp: null,
         days: null,
         hours: null,
         date: null,
@@ -151,7 +159,7 @@
         if (!this.assistant) this.client = localStorageService.getUser().id;
         else this.client = this.selectedID;
 
-        if (this.title && this.description && this.reward && (this.days || this.hours) && this.date && this.numberPeople && this.client && (this.melee || this.archer || this.mage || this.artisan)) {
+        if (this.title && this.description && this.reward && this.rewardExp && (this.days || this.hours) && this.date && this.numberPeople && this.client && (this.melee || this.archer || this.mage || this.artisan)) {
           if (!this.days) this.days = 0;
           if (!this.hours) this.hours = 0;
           if (!this.melee) this.melee = 0;
@@ -163,6 +171,7 @@
         this.titleError = !this.title;
         this.descriptionError = !this.description;
         this.rewardError = !this.reward;
+        this.rewardExpError = !this.rewardExp;
         this.estimateDateError = !this.days && !this.hours;
         this.limitDateError = !this.date;
         this.numberPeopleError = !this.numberPeople;
@@ -172,13 +181,14 @@
         if (this.titleError === false &&
           this.descriptionError === false &&
           this.rewardError === false &&
+          this.rewardExpError === false &&
           this.estimateDateError === false &&
           this.limitDateError === false &&
           this.numberPeopleError === false &&
           this.clientError === false &&
           this.levelError === false) {
           const time = this.days * 1440 + this.hours * 60;
-          const data = {titre: this.title, description: this.description, recompense: this.reward, duree: time, date_limite: this.date, nbr_personne_minimum: this.numberPeople, id_client: this.client,
+          const data = {titre: this.title, description: this.description, recompense: this.reward, recompense_exp: this.rewardExp, duree: time, date_limite: this.date, nbr_personne_minimum: this.numberPeople, id_client: this.client,
             metiers: [
               {
                 id_metier_classe: 1,
