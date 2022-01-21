@@ -16,4 +16,3 @@ export const updateStatus = (idRequest, status) => {
     };
     return put(`https://quiet-fortress-49850.herokuapp.com/api/requete/${idRequest}`, data, localStorageService.getAccessToken())
 }
-}
