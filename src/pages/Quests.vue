@@ -161,7 +161,6 @@ export default {
   mounted() {
     getQuests().then(data => {
       this.table1.data = data;
-      console.log(data);
     });
   }
 };

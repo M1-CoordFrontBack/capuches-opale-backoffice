@@ -19,6 +19,7 @@
           <td
             v-for="(column, index) in columns"
             :key="index"
+            v-if="hasValue(item, column)"
             :width="`${column.width}`"
           >
             <span v-if="column.id !== 'status_actuel'" class="entry-title">
@@ -95,16 +96,16 @@
             :centered="false"
             :show-close="true"
           >
-            <div class="modal-content-data" style="vertical-align: top">
-              <!--<select>
+            <div class="modal-content-data" style="vertical-align: top; overflow: hidden">
+            <select>
               <option
                 v-for="role in listRoles"
                 :value="role.name"
                 :key="role.id"
               >
-                <img :src="getImg(role.icon)" v-bind:alt="role.icon">
+                {{role.name}}
               </option>
-            </select>-->
+            </select>
               <input
                 class="searchbar-input"
                 type="text"
@@ -112,7 +113,7 @@
                 placeholder="Search"
               />
               <br />
-              <!--<ul>
+              <ul style="overflow: auto; height:230px;">
                 <li v-for="a in searchProd(listAdventurers)" :key="a.id">
                   <table v-if="!item.aventuriers.includes(a.id)">
                     <tr>
@@ -135,7 +136,7 @@
                   </table>
                   <span v-else />
                 </li>
-              </ul>-->
+              </ul>
             </div>
             <div class="modal-content-data">
               <!--<ul>
@@ -172,11 +173,11 @@
         </td>
       </tr>
       <tr v-if="opened.includes(indexation)" class="expanded-row">
-        <td style="vertical-align: top" v-if="item.hasOwnProperty('niv')">
+        <td style="vertical-align: top">
           <b>Niveau minimum</b><br />
           <div v-if="item.metiers.length">
-          <div class="job-level" v-for="m in item.metiers">
-            <div :key="m.id_requete + '-' + m.id_metier_classe">
+          <div class="job-level" v-for="m in item.metiers" :key="m.id_requete + '-' + m.id_metier_classe">
+            <div>
               <span class="nbr-badge nbr-badge-align">{{
                 m.exp_recommande.toLocaleString()
               }}</span
@@ -208,7 +209,7 @@
 </template>
 <script>
 import Modal from "@/components/Modal";
-import { updateStatus } from "@/utils/services/quests.js";
+import { updateStatus, getAdventurersByClasse, updateAdventurers } from "@/utils/services/quests.js";
 
 export default {
   name: "base-table",
@@ -316,6 +317,9 @@ export default {
       })
       
     },
+    getAdv() {
+
+    },
     addAdv(item, id) {
       console.log(item);
       console.log(id);
@@ -378,7 +382,6 @@ export default {
     },
     searchProd(listAdventurers) {
       let se = [];
-      getUsername();
       if (this.search !== "") {
         se = this.listAdventurers.filter(
           (p) =>

@@ -14,5 +14,16 @@ export const updateStatus = (idRequest, status) => {
     const data = {
         "status_actuel": status
     };
-    return put(`https://quiet-fortress-49850.herokuapp.com/api/requete/${idRequest}`, data, localStorageService.getAccessToken())
+    return put(`https://quiet-fortress-49850.herokuapp.com/api/requete/${idRequest}`, data, localStorageService.getAccessToken());
+}
+
+export const getAdventurersByClasse = (idClasse) => {
+    return get("", localStorageService.getAccessToken());
+}
+
+export const updateAdventurers = (idRequest, adventurers) => {
+    const data = {
+        "aventuriers":adventurers
+    }
+    return put(`https://quiet-fortress-49850.herokuapp.com/api/requete/${idRequest}`, data, localStorageService.getAccessToken());
 }
