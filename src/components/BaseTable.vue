@@ -166,7 +166,7 @@
           </modal>
           <div v-if="item.aventuriers.length">
             <span v-for="a in item.aventuriers" :key="a.id"
-              >{{ a.nom + ' ' + a.prenom }}<br
+              >{{ a.nom + " " + a.prenom }}<br
             /></span>
           </div>
           <div v-else><span>Aucun</span></div>
@@ -176,14 +176,16 @@
         <td style="vertical-align: top">
           <b>Niveau minimum</b><br />
           <div v-if="item.metiers.length">
-          <div class="job-level" v-for="m in item.metiers">
-            <div :key="m.id_requete + '-' + m.id_metier_classe">
-              <span class="nbr-badge nbr-badge-align">{{
-                m.exp_recommande.toLocaleString()
-              }}</span
-              ><span class="nbr-title">{{metierName(m.id_metier_classe)}}</span>
+            <div class="job-level" v-for="m in item.metiers">
+              <div :key="m.id_requete + '-' + m.id_metier_classe">
+                <span class="nbr-badge nbr-badge-align">{{
+                  m.exp_recommande.toLocaleString()
+                }}</span
+                ><span class="nbr-title">{{
+                  metierName(m.id_metier_classe)
+                }}</span>
+              </div>
             </div>
-          </div>
           </div>
           <div v-else>
             <span>Aucun niveau défini</span>
@@ -295,15 +297,15 @@ export default {
       }
     },
     metierName(id) {
-      switch(id) {
+      switch (id) {
         case 1:
-          return 'Mêlée'
+          return "Mêlée";
         case 2:
-          return 'Archer'
+          return "Archer";
         case 3:
-          return 'Mage'
+          return "Mage";
         case 4:
-          return 'Artisan'
+          return "Artisan";
       }
     },
     log(value) {

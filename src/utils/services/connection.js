@@ -16,13 +16,13 @@ export const handleLogin = (login, password) => {
 
       response.json().then(function (data) {
         localStorageService.setAccessToken(data.token);
-        const parsedToken = localStorageService.parseToken(data.token)
-        const user = parsedToken.user ? parsedToken.user : null
-        localStorageService.setUser(user)
-        if(user && user.role_id === 3) {
-          router.push({ name: 'quêtes'})
+        const parsedToken = localStorageService.parseToken(data.token);
+        const user = parsedToken.user ? parsedToken.user : null;
+        localStorageService.setUser(user);
+        if (user && user.role_id === 3) {
+          router.push({ name: "quêtes" });
         } else {
-          router.push({ name: 'front-quests'})
+          router.push({ name: "front-quests" });
         }
         return data.token;
       });

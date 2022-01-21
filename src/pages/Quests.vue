@@ -46,7 +46,7 @@ const tableData = [
     duration: "3 jours",
     expiration: "01/04/22",
     persons: 3,
-    aventurers: [1,3,4],
+    aventurers: [1, 3, 4],
     description:
       "J'aimerais beaucoup aller acheter du lait pour pouvoir réaliser un mugcake au chocolat !",
     niv: {
@@ -65,7 +65,7 @@ const tableData = [
     duration: "",
     expiration: "01/03/22",
     persons: 0,
-    aventurers: [1,5],
+    aventurers: [1, 5],
     description: "",
     niv: {
       artisan: "2",
@@ -153,104 +153,104 @@ const tableAdventurers = [
     id: 1,
     name: {
       first: "Camille",
-      last: "LeBuffle"
+      last: "LeBuffle",
     },
     levels: {
       artisan: "2",
       melee: "0",
       archer: "0",
       mage: "22",
-    }
+    },
   },
   {
     id: 2,
     name: {
       first: "Marius",
-      last: "LeMarsouin"
+      last: "LeMarsouin",
     },
     levels: {
       artisan: "6",
       melee: "1",
       archer: "42",
       mage: "17",
-    }
+    },
   },
   {
     id: 3,
     name: {
       first: "Yann",
-      last: "Lantilope"
+      last: "Lantilope",
     },
     levels: {
       artisan: "7",
       melee: "4",
       archer: "2",
       mage: "19",
-    }
+    },
   },
   {
     id: 4,
     name: {
       first: "Mael",
-      last: "LePingouin"
+      last: "LePingouin",
     },
     levels: {
       artisan: "0",
       melee: "0",
       archer: "0",
       mage: "-1",
-    }
+    },
   },
   {
     id: 5,
     name: {
       first: "Florian",
-      last: "LePangolin"
+      last: "LePangolin",
     },
     levels: {
       artisan: "90",
       melee: "280",
       archer: "32",
       mage: "140",
-    }
+    },
   },
   {
     id: 6,
     name: {
       first: "Bastien",
-      last: "Lautruche"
+      last: "Lautruche",
     },
     levels: {
       artisan: "9",
       melee: "20",
       archer: "4",
       mage: "923",
-    }
-  }
+    },
+  },
 ];
 
 const listRoles = [
   {
     id: 1,
     name: "Artisan",
-    icon: "hammer"
+    icon: "hammer",
   },
   {
     id: 2,
     name: "Mêlée",
-    icon: "sword"
+    icon: "sword",
   },
   {
     id: 3,
     name: "Archer",
-    icon: "bow"
+    icon: "bow",
   },
   {
     id: 4,
     name: "Mage",
-    icon: "wand"
-  }
-]
+    icon: "wand",
+  },
+];
 
 export default {
   components: {
@@ -264,17 +264,17 @@ export default {
         data: [...tableData],
         listStatus: [...tableStatus],
         listAdventurers: [...tableAdventurers],
-        listRoles: [...listRoles]
+        listRoles: [...listRoles],
       },
       referer: this.$route.query.rf,
       notifications: {
-        topCenter: false
-      }
+        topCenter: false,
+      },
     };
   },
   mounted() {
     if (this.referer) {
-      this.notifyVue('top', 'right');
+      this.notifyVue("top", "right");
     }
   },
   methods: {
@@ -285,10 +285,10 @@ export default {
         horizontalAlign: horizontalAlign,
         verticalAlign: verticalAlign,
         type: "success",
-        timeout: 3500
+        timeout: 3500,
       });
-    }
-  }
+    },
+  },
 };
 </script>
 <style></style>

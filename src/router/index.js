@@ -8,31 +8,31 @@ const router = new VueRouter({
   linkExactActiveClass: "active",
   scrollBehavior: (to) => {
     if (to.hash) {
-      return {selector: to.hash}
+      return { selector: to.hash };
     } else {
-      return { x: 0, y: 0 }
+      return { x: 0, y: 0 };
     }
-  }
+  },
 });
 
 router.beforeEach((to, from, next) => {
-  if (to.matched.some(record => record.meta.requiresAuth)) {
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
     const token = localStorageService.getAccessToken();
     if (!token) {
       next({
-        name: 'login',
+        name: "login",
         query: {
-          nextUrl: 'login'
-        }
-      })
+          nextUrl: "login",
+        },
+      });
     }
 
     const user = localStorageService.getUser();
-    if (to.name === 'quêtes' && user && user.role_id !== 3) {
-      next({ name: 'front-quests' })
+    if (to.name === "quêtes" && user && user.role_id !== 3) {
+      next({ name: "front-quests" });
     }
-    if (to.name === 'front-quests' && user && user.role_id !== 2) {
-      next({ name: 'quêtes' })
+    if (to.name === "front-quests" && user && user.role_id !== 2) {
+      next({ name: "quêtes" });
     }
 
     const parsedJwt = localStorageService.parseToken(token);
@@ -40,11 +40,11 @@ router.beforeEach((to, from, next) => {
       if (Math.floor(Date.now() / 1000) > parsedJwt.exp) {
         localStorageService.clearToken();
         next({
-          name: 'Login',
+          name: "Login",
           query: {
-            nextUrl: 'Login'
-          }
-        })
+            nextUrl: "Login",
+          },
+        });
       }
     }
   }

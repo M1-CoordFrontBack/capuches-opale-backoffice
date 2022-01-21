@@ -4,18 +4,36 @@ import Layout from "@/layout/frontend/Layout.vue";
 import NotFound from "@/pages/NotFoundPage.vue";
 
 // Admin pages
-const Profile = () => import(/* webpackChunkName: "common" */ "@/pages/Profile.vue");
-const Notifications = () => import(/* webpackChunkName: "common" */"@/pages/Notifications.vue");
-const Icons = () => import(/* webpackChunkName: "common" */ "@/pages/Icons.vue");
-const Quests = () => import(/* webpackChunkName: "common" */ "@/pages/Quests.vue");
-const FrontQuests = () => import(/* webpackChunkName: "common" */ "@/pages/FrontOffice/FrontQuests.vue");
-const Typography = () => import(/* webpackChunkName: "common" */ "@/pages/Typography.vue");
-const TableList = () => import(/* webpackChunkName: "common" */ "@/pages/TableList.vue");
-const CreateQuest = () => import(/* webpackChunkName: "common" */ "@/pages/FrontOffice/CreateQuest.vue");
+const Profile = () =>
+  import(/* webpackChunkName: "common" */ "@/pages/Profile.vue");
+const Notifications = () =>
+  import(/* webpackChunkName: "common" */ "@/pages/Notifications.vue");
+const Icons = () =>
+  import(/* webpackChunkName: "common" */ "@/pages/Icons.vue");
+const Quests = () =>
+  import(/* webpackChunkName: "common" */ "@/pages/Quests.vue");
+const FrontQuests = () =>
+  import(
+    /* webpackChunkName: "common" */ "@/pages/FrontOffice/FrontQuests.vue"
+  );
+const Typography = () =>
+  import(/* webpackChunkName: "common" */ "@/pages/Typography.vue");
+const TableList = () =>
+  import(/* webpackChunkName: "common" */ "@/pages/TableList.vue");
+const CreateQuest = () =>
+  import(
+    /* webpackChunkName: "common" */ "@/pages/FrontOffice/CreateQuest.vue"
+  );
 
 // Security
-const Login = () => import(/* webpackChunkName: "security" */"@/pages/FrontOffice/Security/Login.vue");
-const Register = () => import(/* webpackChunkName: "security" */"@/pages/FrontOffice/Security/Register.vue");
+const Login = () =>
+  import(
+    /* webpackChunkName: "security" */ "@/pages/FrontOffice/Security/Login.vue"
+  );
+const Register = () =>
+  import(
+    /* webpackChunkName: "security" */ "@/pages/FrontOffice/Security/Register.vue"
+  );
 
 const routes = [
   {
@@ -26,40 +44,40 @@ const routes = [
       {
         path: "profile",
         name: "profile",
-        component: Profile
+        component: Profile,
       },
       {
         path: "notifications",
         name: "notifications",
-        component: Notifications
+        component: Notifications,
       },
       {
         path: "icons",
         name: "icons",
-        component: Icons
+        component: Icons,
       },
       {
         path: "",
         name: "quêtes",
         component: Quests,
-        props: true
+        props: true,
       },
       {
         path: "quests",
         name: "quêtes",
-        component: Quests
+        component: Quests,
       },
       {
         path: "typography",
         name: "typography",
-        component: Typography
+        component: Typography,
       },
       {
         path: "table-list",
         name: "table-list",
-        component: TableList
-      }
-    ]
+        component: TableList,
+      },
+    ],
   },
   {
     path: "/front",
@@ -69,19 +87,19 @@ const routes = [
       {
         path: "create-quest",
         name: "create-quest",
-        component: CreateQuest
+        component: CreateQuest,
       },
       {
         path: "quests",
         name: "front-quests",
         component: FrontQuests,
-        props: true
-      }
-    ]
+        props: true,
+      },
+    ],
   },
   { path: "*", component: NotFound },
-  {path: "/", name: "login", component: Login, props: true},
-  {path: "/register", name: "register", component: Register},
+  { path: "/", name: "login", component: Login, props: true },
+  { path: "/register", name: "register", component: Register },
 ];
 
 /**
