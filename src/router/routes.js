@@ -4,13 +4,8 @@ import Layout from "@/layout/frontend/Layout.vue";
 import NotFound from "@/pages/NotFoundPage.vue";
 
 // Admin pages
-const Profile = () => import(/* webpackChunkName: "common" */ "@/pages/Profile.vue");
-const Notifications = () => import(/* webpackChunkName: "common" */"@/pages/Notifications.vue");
-const Icons = () => import(/* webpackChunkName: "common" */ "@/pages/Icons.vue");
 const Quests = () => import(/* webpackChunkName: "common" */ "@/pages/Quests.vue");
 const FrontQuests = () => import(/* webpackChunkName: "common" */ "@/pages/FrontOffice/FrontQuests.vue");
-const Typography = () => import(/* webpackChunkName: "common" */ "@/pages/Typography.vue");
-const TableList = () => import(/* webpackChunkName: "common" */ "@/pages/TableList.vue");
 const CreateQuest = () => import(/* webpackChunkName: "common" */ "@/pages/FrontOffice/CreateQuest.vue");
 
 // Security
@@ -24,40 +19,10 @@ const routes = [
     meta: { requiresAuth: true },
     children: [
       {
-        path: "profile",
-        name: "profile",
-        component: Profile
-      },
-      {
-        path: "notifications",
-        name: "notifications",
-        component: Notifications
-      },
-      {
-        path: "icons",
-        name: "icons",
-        component: Icons
-      },
-      {
         path: "",
         name: "quêtes",
         component: Quests,
         props: true
-      },
-      {
-        path: "quests",
-        name: "quêtes",
-        component: Quests
-      },
-      {
-        path: "typography",
-        name: "typography",
-        component: Typography
-      },
-      {
-        path: "table-list",
-        name: "table-list",
-        component: TableList
       }
     ]
   },
