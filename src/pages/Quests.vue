@@ -20,6 +20,7 @@
 </template>
 <script>
 import { BaseTable } from "@/components";
+import NotificationTemplate from "@/pages/Notifications/NotificationTemplateCreateQuest";
 import { getQuests } from "@/utils/services/quests.js"
 
 const tableColumns = [
@@ -156,12 +157,32 @@ export default {
         listRoles: [...listRoles],
         listStatus: [...tableStatus]
       },
+      referer: this.$route.query.rf,
+      notifications: {
+        topCenter: false
+      }
     };
-  },
+  }, 
   mounted() {
+    if (this.referer) {
+      this.notifyVue('top', 'right');
+    }
+
     getQuests().then(data => {
       this.table1.data = data;
     });
+  },
+  methods: {
+    notifyVue(verticalAlign, horizontalAlign) {
+      this.$notify({
+        component: NotificationTemplate,
+        icon: "tim-icons icon-check-2",
+        horizontalAlign: horizontalAlign,
+        verticalAlign: verticalAlign,
+        type: "success",
+        timeout: 3500
+      });
+    }
   }
 };
 </script>
