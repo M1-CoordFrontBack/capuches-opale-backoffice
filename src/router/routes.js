@@ -41,7 +41,8 @@ const routes = [
       {
         path: "",
         name: "quêtes",
-        component: Quests
+        component: Quests,
+        props: true
       },
       {
         path: "typography",
@@ -68,7 +69,8 @@ const routes = [
       {
         path: "quests",
         name: "front-quests",
-        component: FrontQuests
+        component: FrontQuests,
+        props: true
       }
     ]
   },

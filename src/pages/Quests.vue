@@ -20,6 +20,8 @@
 </template>
 <script>
 import { BaseTable } from "@/components";
+import NotificationTemplate from "@/pages/Notifications/NotificationTemplateCreateQuest";
+
 const tableStatus = [
   "Proposée",
   "En cours",
@@ -264,8 +266,29 @@ export default {
         listAdventurers: [...tableAdventurers],
         listRoles: [...listRoles]
       },
+      referer: this.$route.query.rf,
+      notifications: {
+        topCenter: false
+      }
     };
   },
+  mounted() {
+    if (this.referer) {
+      this.notifyVue('top', 'right');
+    }
+  },
+  methods: {
+    notifyVue(verticalAlign, horizontalAlign) {
+      this.$notify({
+        component: NotificationTemplate,
+        icon: "tim-icons icon-check-2",
+        horizontalAlign: horizontalAlign,
+        verticalAlign: verticalAlign,
+        type: "success",
+        timeout: 3500
+      });
+    }
+  }
 };
 </script>
 <style></style>
