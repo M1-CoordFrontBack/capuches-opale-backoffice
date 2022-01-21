@@ -166,7 +166,7 @@
           </modal>
           <div v-if="item.aventuriers.length">
             <span v-for="a in item.aventuriers" :key="a.id"
-              >{{ getAdvName(listAdventurers, a) }}<br
+              >{{ a.nom + ' ' + a.prenom }}<br
             /></span>
           </div>
           <div v-else><span>Aucun</span></div>
