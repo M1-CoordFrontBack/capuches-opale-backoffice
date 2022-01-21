@@ -334,10 +334,10 @@ export default {
         default:
           return "badge";
       }
-    },
+    },*/
     getItemIcon(item, column) {
       const value = item[column.id.toLowerCase()];
-      if (column.id !== "status") {
+      if (column.id !== "status_actuel") {
         return "";
       } else {
         switch (value.toLowerCase()) {
@@ -364,7 +364,7 @@ export default {
       return name;
     },
     itemValue(item, column) {
-      if (column.id === "reward_gold") {
+      if (column.id === "recompense") {
         return item[column.id.toLowerCase()].toLocaleString();
       }
       return item[column.id.toLowerCase()];
