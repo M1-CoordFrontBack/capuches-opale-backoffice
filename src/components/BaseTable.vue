@@ -39,7 +39,7 @@
                 <option
                   v-for="state in listStatus"
                   :value="state"
-                  :selected="state === itemValue(item, column)"
+                  :selected="state.toLowerCase() === itemValue(item, column)"
                   :key="state"
                 >
                   {{ state }}
@@ -160,7 +160,7 @@
               </ul>-->
             </div>
           </modal>
-          <div v-if="item.aventurers.length">
+          <div v-if="item.hasOwnProperty('aventurers') && item.aventurers.length">
             <span v-for="a in item.aventurers" :key="a"
               >{{ getAdvName(listAdventurers, a) }}<br
             /></span>
@@ -169,29 +169,29 @@
         </td>
       </tr>
       <tr v-if="opened.includes(indexation)" class="expanded-row">
-        <td style="vertical-align: top">
+        <td style="vertical-align: top" v-if="item.hasOwnProperty('niv')">
           <b>Niveau minimum</b><br />
           <div class="job-level">
             <span class="nbr-badge nbr-badge-align">{{
-              item.niv.artisan ? item.niv.artisan : "N/A"
+              item.hasOwnProperty("artisan") && item.niv.artisan ? item.niv.artisan : "N/A"
             }}</span
             ><span class="nbr-title">Artisans</span>
           </div>
           <div class="job-level">
             <span class="nbr-badge nbr-badge-align">{{
-              item.niv.melee ? item.niv.melee : "N/A"
+              item.hasOwnProperty("melee") && item.niv.melee ? item.niv.melee : "N/A"
             }}</span
             ><span class="nbr-title">Mêlée</span>
           </div>
           <div class="job-level">
             <span class="nbr-badge nbr-badge-align">{{
-              item.niv.archer ? item.niv.archer : "N/A"
+              item.hasOwnProperty("archer") && item.niv.archer ? item.niv.archer : "N/A"
             }}</span
             ><span class="nbr-title">Archers</span>
           </div>
           <div class="job-level">
             <span class="nbr-badge nbr-badge-align">{{
-              item.niv.mage ? item.niv.mage : "N/A"
+              item.hasOwnProperty("mage") && item.niv.mage ? item.niv.mage : "N/A"
             }}</span
             ><span class="nbr-title">Mages</span>
           </div>
