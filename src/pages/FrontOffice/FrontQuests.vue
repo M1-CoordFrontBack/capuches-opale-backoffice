@@ -19,6 +19,7 @@
 </template>
 <script>
 import { BaseTable } from "@/components";
+import NotificationTemplate from "@/pages/Notifications/NotificationTemplateCreateQuest";
 import { getQuestsByUser } from "@/utils/services/quests.js"
 
 const tableColumns = [
@@ -145,14 +146,33 @@ export default {
         listAdventurers: [...tableAdventurers],
         listRoles: [...listRoles],
       },
+      referer: this.$route.query.rf,
+      notifications: {
+        topCenter: false
+      }
     };
   },
   mounted() {
     getQuestsByUser().then(data => this.table1.data = data);
+    if (this.referer) {
+      this.notifyVue('top', 'right');
+    }
+  },
+  methods: {
+    notifyVue(verticalAlign, horizontalAlign) {
+      this.$notify({
+        component: NotificationTemplate,
+        icon: "tim-icons icon-check-2",
+        horizontalAlign: horizontalAlign,
+        verticalAlign: verticalAlign,
+        type: "success",
+        timeout: 3500
+      });
+    }
   }
 };
 </script>
 <style></style>
 <style lang="scss" scoped>
-@import "../../assets/sass/front-office/FrontQuest";
+  @import "../../assets/sass/front-office/FrontQuest";
 </style>

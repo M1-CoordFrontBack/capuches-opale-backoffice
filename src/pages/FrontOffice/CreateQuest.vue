@@ -16,8 +16,14 @@
           </tr>
           <tr>
             <td>
-              <label>Récompense</label>&nbsp;<span class="error" v-if="rewardError">Récompense requise.</span><br />
-              <input type="text" id="reward" v-model="reward" />
+              <label class="reward">Récompense</label>&nbsp;<span class="error" v-if="rewardError">Récompense requise.</span>
+              <label>Récompense exp</label>&nbsp;<span class="error" v-if="rewardExpError">Récompense exp requise.</span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <input type="number" id="reward" class="reward" v-model="reward" />
+              <input type="number" id="rewardExp" v-model="rewardExp" />
             </td>
           </tr>
           <tr>
@@ -39,9 +45,9 @@
             </td>
             <td v-if="assistant">
               <label>Commanditaire</label>&nbsp;<span class="error" v-if="clientError">Commanditaire requis.</span><br />
-              <input class="client" list="clients" placeholder="Commanditaire" v-model="client" />
+              <input class="client" list="clients" placeholder="Commanditaire" v-model="client" @input="onChange" />
               <datalist id="clients">
-                <option v-for="client in clients" :key="client.id">{{client.login}}_{{client.firstname}}_{{client.firstname}}</option>
+                <option v-for="client in clients" :data-id="client.id">{{client.name}}</option>
               </datalist>
             </td>
           </tr>
@@ -81,12 +87,16 @@
 
 <script>
   import localStorageService from "@/services/localStorageService";
+  import { post } from "@/utils/functions";
+  import { getClients } from "@/utils/services/users";
   export default {
     data() {
       return {
+        selectedID: "",
         titleError: false,
         descriptionError: false,
         rewardError: false,
+        rewardExpError: false,
         estimateDateError: false,
         limitDateError: false,
         numberPeopleError: false,
@@ -95,6 +105,7 @@
         title: null,
         description: null,
         reward: null,
+        rewardExp: null,
         days: null,
         hours: null,
         date: null,
@@ -104,26 +115,14 @@
         archer: null,
         mage: null,
         artisan: null,
-        clients: [
-          {
-            id: 1,
-            login: 'test',
-            firstname: 'test',
-            name: 'test'
-          },
-          {
-            id: 2,
-            login: 'toto',
-            firstname: 'toto',
-            name: 'toto'
-          },
-          {
-            id: 3,
-            login: 'titi',
-            firstname: 'titi',
-            name: 'titi'
-          }
-        ]
+        clients: []
+      }
+    },
+    mounted() {
+      if(this.assistant) {
+        getClients().then(client => {
+          this.clients = client;
+        });
       }
     },
     computed: {
@@ -136,8 +135,31 @@
       }
     },
     methods: {
+      homePage(){
+        if (this.assistant){
+          this.$router.push({ name: 'quêtes', query: { rf: 'r' }});
+        } else {
+          this.$router.push({ name: 'front-quests', query: { rf: 'r' }});
+        }
+      },
+      onChange(e) {
+        this.getID(e.target.value).then(
+          response => (this.selectedID = response)
+        );
+      },
+      async getID(value) {
+        let promise = new Promise((resolve, reject) => {
+          this.clients.forEach(item => {
+            if (item.name === value) resolve(item.id);
+          });
+        });
+        return await promise;
+      },
       checkForm() {
-        if (this.title && this.description && this.reward && (this.days || this.hours) && this.date && this.numberPeople && this.client && (this.melee || this.archer || this.mage || this.artisan)) {
+        if (!this.assistant) this.client = localStorageService.getUser().id;
+        else this.client = this.selectedID;
+
+        if (this.title && this.description && this.reward && this.rewardExp && (this.days || this.hours) && this.date && this.numberPeople && this.client && (this.melee || this.archer || this.mage || this.artisan)) {
           if (!this.days) this.days = 0;
           if (!this.hours) this.hours = 0;
           if (!this.melee) this.melee = 0;
@@ -149,11 +171,45 @@
         this.titleError = !this.title;
         this.descriptionError = !this.description;
         this.rewardError = !this.reward;
+        this.rewardExpError = !this.rewardExp;
         this.estimateDateError = !this.days && !this.hours;
         this.limitDateError = !this.date;
         this.numberPeopleError = !this.numberPeople;
         this.clientError = !this.client;
         this.levelError = !this.melee && !this.archer && !this.mage && !this.artisan;
+
+        if (this.titleError === false &&
+          this.descriptionError === false &&
+          this.rewardError === false &&
+          this.rewardExpError === false &&
+          this.estimateDateError === false &&
+          this.limitDateError === false &&
+          this.numberPeopleError === false &&
+          this.clientError === false &&
+          this.levelError === false) {
+          const time = this.days * 1440 + this.hours * 60;
+          const data = {titre: this.title, description: this.description, recompense: this.reward, recompense_exp: this.rewardExp, duree: time, date_limite: this.date, nbr_personne_minimum: this.numberPeople, id_client: this.client,
+            metiers: [
+              {
+                id_metier_classe: 1,
+                exp_recommande: this.melee
+              },
+              {
+                id_metier_classe: 2,
+                exp_recommande: this.archer
+              },
+              {
+                id_metier_classe: 3,
+                exp_recommande: this.mage
+              },
+              {
+                id_metier_classe: 4,
+                exp_recommande: this.artisan
+              }
+            ]};
+          post('https://quiet-fortress-49850.herokuapp.com/api/requete', data);
+          this.homePage();
+        }
       }
     }
   }

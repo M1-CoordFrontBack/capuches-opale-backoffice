@@ -41,6 +41,12 @@ const routes = [
       {
         path: "",
         name: "quêtes",
+        component: Quests,
+        props: true
+      },
+      {
+        path: "quests",
+        name: "quêtes",
         component: Quests
       },
       {
@@ -73,12 +79,13 @@ const routes = [
       {
         path: "quests",
         name: "front-quests",
-        component: FrontQuests
+        component: FrontQuests,
+        props: true
       }
     ]
   },
   { path: "*", component: NotFound },
-  {path: "/", name: "login", component: Login},
+  {path: "/", name: "login", component: Login, props: true},
   {path: "/register", name: "register", component: Register},
 ];
 

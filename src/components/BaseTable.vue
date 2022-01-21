@@ -31,10 +31,11 @@
             </span>
 
             <div v-else>
-              <select v-if="assistant"
-              :class="`${getStatusStyle(item, column)}`"
-              @click="$event.stopPropagation()"
-              @change="changeStatus($event, item, column)"
+              <select
+                v-if="assistant"
+                :class="`${getStatusStyle(item, column)}`"
+                @click="$event.stopPropagation()"
+                @change="changeStatus($event, item, column)"
               >
                 <option
                   v-for="state in listStatus"
@@ -46,16 +47,17 @@
                 </option>
               </select>
 
-              <span v-else :class="`${getStatusStyle(item, column)} badge-front`">
+              <span
+                v-else
+                :class="`${getStatusStyle(item, column)} badge-front`"
+              >
                 {{ itemValue(item, column) }}
               </span>
             </div>
-
           </td>
           <td>
-
-        <span v-if="opened.includes(indexation)" class="c-dropdown-open" />
-        <span v-else class="c-dropdown-closed" />
+            <span v-if="opened.includes(indexation)" class="c-dropdown-open" />
+            <span v-else class="c-dropdown-closed" />
           </td>
         </slot>
       </tr>
@@ -67,7 +69,8 @@
         <td style="vertical-align: top">
           <b
             >Aventuriers
-            <span v-if="assistant"
+            <span
+              v-if="assistant"
               style="
                 font-size: 18px;
                 line-height: 1;
@@ -111,7 +114,7 @@
               <br />
               <!--<ul>
                 <li v-for="a in searchProd(listAdventurers)" :key="a.id">
-                  <table v-if="!item.aventurers.includes(a.id)">
+                  <table v-if="!item.aventuriers.includes(a.id)">
                     <tr>
                       <td style="width: 80px">
                         <img
@@ -160,9 +163,10 @@
               </ul>-->
             </div>
           </modal>
-          <div v-if="item.hasOwnProperty('aventuriers') && item.aventuriers.length">
+          <div v-if="item.aventuriers.length">
             <span v-for="a in item.aventuriers" :key="a.id"
-              >{{ a.nom }}<br/></span>
+              >{{ a.nom + ' ' + a.prenom }}<br
+            /></span>
           </div>
           <div v-else><span>Aucun</span></div>
         </td>
@@ -170,29 +174,18 @@
       <tr v-if="opened.includes(indexation)" class="expanded-row">
         <td style="vertical-align: top" v-if="item.hasOwnProperty('niv')">
           <b>Niveau minimum</b><br />
-          <div class="job-level">
-            <span class="nbr-badge nbr-badge-align">{{
-              item.hasOwnProperty("artisan") && item.niv.artisan ? item.niv.artisan : "N/A"
-            }}</span
-            ><span class="nbr-title">Artisans</span>
+          <div v-if="item.metiers.length">
+          <div class="job-level" v-for="m in item.metiers">
+            <div :key="m.id_requete + '-' + m.id_metier_classe">
+              <span class="nbr-badge nbr-badge-align">{{
+                m.exp_recommande.toLocaleString()
+              }}</span
+              ><span class="nbr-title">{{metierName(m.id_metier_classe)}}</span>
+            </div>
           </div>
-          <div class="job-level">
-            <span class="nbr-badge nbr-badge-align">{{
-              item.hasOwnProperty("melee") && item.niv.melee ? item.niv.melee : "N/A"
-            }}</span
-            ><span class="nbr-title">Mêlée</span>
           </div>
-          <div class="job-level">
-            <span class="nbr-badge nbr-badge-align">{{
-              item.hasOwnProperty("archer") && item.niv.archer ? item.niv.archer : "N/A"
-            }}</span
-            ><span class="nbr-title">Archers</span>
-          </div>
-          <div class="job-level">
-            <span class="nbr-badge nbr-badge-align">{{
-              item.hasOwnProperty("mage") && item.niv.mage ? item.niv.mage : "N/A"
-            }}</span
-            ><span class="nbr-title">Mages</span>
+          <div v-else>
+            <span>Aucun niveau défini</span>
           </div>
         </td>
         <td style="vertical-align: top">
@@ -234,7 +227,7 @@ export default {
       type: Boolean,
       default: () => false,
       description: "assistant",
-      opened: []
+      opened: [],
     },
     listStatus: {
       type: Array,
@@ -300,6 +293,18 @@ export default {
         this.opened.push(id);
       }
     },
+    metierName(id) {
+      switch(id) {
+        case 1:
+          return 'Mêlée'
+        case 2:
+          return 'Archer'
+        case 3:
+          return 'Mage'
+        case 4:
+          return 'Artisan'
+      }
+    },
     log(value) {
       console.log(value);
     },
@@ -320,8 +325,8 @@ export default {
       console.log("to implement");
     },
     getImg(icon) {
-      let images = require.context('../assets/img/', false, /\.png$/)
-      return images('./' + icon + ".png")
+      let images = require.context("../assets/img/", false, /\.png$/);
+      return images("./" + icon + ".png");
     },
     getStatusStyle(item, column) {
       if(column.hasOwnProperty("id") && column.id) {

@@ -18,3 +18,7 @@ export const updateUser = (password, firstName, lastName) => {
         token = localStorageService.getAccessToken();
     put(`https://redpegasus-micro-auth.herokuapp.com/api/user/${id}`, data, token);
 }
+
+export const getClients = () => {
+  return get('https://redpegasus-micro-personne.herokuapp.com/api/personne', localStorageService.getAccessToken());
+}
