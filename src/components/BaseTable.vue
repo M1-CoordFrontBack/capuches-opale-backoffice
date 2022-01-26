@@ -79,7 +79,7 @@
                 vertical-align: middle;
                 font-weight: 400;
               "
-              @click="searchModalVisible = true"
+              @click="searchModalVisible = true; searchAdv()"
               ><i
                 class="tim-icons icon-pencil"
                 style="
@@ -97,7 +97,7 @@
             :show-close="true"
           >
             <div class="modal-content-data" style="vertical-align: top; overflow: hidden">
-            <select>
+            <select :v-model="classe" @change="searchAdv()">
               <option
                 v-for="role in listRoles"
                 :value="role.name"
@@ -115,7 +115,7 @@
               <br />
               <ul style="overflow: auto; height:230px;">
                 <li v-for="a in searchProd(listAdventurers)" :key="a.id">
-                  <table v-if="!item.aventuriers.includes(a.id)">
+                  <table>
                     <tr>
                       <td style="width: 80px">
                         <img
@@ -134,23 +134,22 @@
                       </td>
                     </tr>
                   </table>
-                  <span v-else />
                 </li>
               </ul>
             </div>
             <div class="modal-content-data">
-              <!--<ul>
-                <li v-for="a in listAdventurers" :key="a.id">
-                  <table v-if="item.aventurers?.includes(a.id)">
+              <ul>
+                <li v-for="a in item.aventuriers" :key="a.id">
+                  <table>
                     <tr>
                       <td style="width: 80px">
                         <img
                           src="@/assets/img/hammer.png"
                           alt="artisan"
                           title="Artisan"
-                        />&nbsp;{{ a.levels.artisan }}
+                        />&nbsp;{{ a.label }}
                       </td>
-                      <td>{{ a.name.first }}&nbsp;{{ a.name.last }}</td>
+                      <td>{{ a.prenom }}&nbsp;{{ a.nom }}</td>
                       <td style="text-align: end">
                         <i
                           class="tim-icons icon-simple-remove"
@@ -161,7 +160,7 @@
                     </tr>
                   </table>
                 </li>
-              </ul>-->
+              </ul>
             </div>
           </modal>
           <div v-if="item.aventuriers.length">
@@ -218,6 +217,8 @@ export default {
       opened: [],
       searchModalVisible: false,
       search: "",
+      listAdventurers: [],
+      classe: 1
     };
   },
   components: {
@@ -234,12 +235,6 @@ export default {
       type: Array,
       default: () => [],
       description: "Table Status",
-      opened: [],
-    },
-    listAdventurers: {
-      type: Array,
-      default: () => [],
-      description: "Table Adventurers",
       opened: [],
     },
     listRoles: {
@@ -317,8 +312,21 @@ export default {
       })
       
     },
-    getAdv() {
-
+    searchAdv() {
+      getAdventurersByClasse(this.classe).then(aventuriers => {
+        console.log(aventuriers);
+        console.log(this.classe);
+        this.listAdventurers = aventuriers;
+      });
+    },
+    getAdv(item) {
+      let list = this.listAdventurers;
+      item.aventuriers.forEach(aventurier => {
+        list.splice(list.find(a => {
+          a.id = aventurier.id
+        }),1);
+      });
+      return list;
     },
     addAdv(item, id) {
       console.log(item);
@@ -326,7 +334,7 @@ export default {
       console.log("to implement");
     },
     removeAdv(item, id) {
-      console.log("to implement");
+      item.aventuriers.splice(item.aventuriers.find(i => i.id == id), 1);
     },
     getImg(icon) {
       let images = require.context("../assets/img/", false, /\.png$/);

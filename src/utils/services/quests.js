@@ -18,7 +18,7 @@ export const updateStatus = (idRequest, status) => {
 }
 
 export const getAdventurersByClasse = (idClasse) => {
-    return get("", localStorageService.getAccessToken());
+    return get(`https://redpegasus-micro-personne.herokuapp.com/api/personne/getByNameAndJob?metierID=${idClasse}`, localStorageService.getAccessToken());
 }
 
 export const updateAdventurers = (idRequest, adventurers) => {
