@@ -7,7 +7,7 @@
             :data="table1.data"
             :columns="table1.columns"
             :listStatus="table1.listStatus"
-            :listAdventurers="table1.listAdventurers"
+            :tableAdventurers="[]"
             :listRoles="table1.listRoles"
             :assistant="true"
             thead-classes="text-primary"
@@ -28,87 +28,6 @@ const tableColumns = [
   { name: "Récompense", width: "30%", id: "recompense" },
   { name: "État", width: "15%", id: "status_actuel" },
   { name: "", width: "3%", id: "collapse" },
-];
-
-const tableAdventurers = [
-  {
-    id: 1,
-    name: {
-      first: "Camille",
-      last: "LeBuffle",
-    },
-    levels: {
-      artisan: "2",
-      melee: "0",
-      archer: "0",
-      mage: "22",
-    },
-  },
-  {
-    id: 2,
-    name: {
-      first: "Marius",
-      last: "LeMarsouin",
-    },
-    levels: {
-      artisan: "6",
-      melee: "1",
-      archer: "42",
-      mage: "17",
-    },
-  },
-  {
-    id: 3,
-    name: {
-      first: "Yann",
-      last: "Lantilope",
-    },
-    levels: {
-      artisan: "7",
-      melee: "4",
-      archer: "2",
-      mage: "19",
-    },
-  },
-  {
-    id: 4,
-    name: {
-      first: "Mael",
-      last: "LePingouin",
-    },
-    levels: {
-      artisan: "0",
-      melee: "0",
-      archer: "0",
-      mage: "-1",
-    },
-  },
-  {
-    id: 5,
-    name: {
-      first: "Florian",
-      last: "LePangolin",
-    },
-    levels: {
-      artisan: "90",
-      melee: "280",
-      archer: "32",
-      mage: "140",
-    },
-  },
-  {
-    id: 6,
-    name: {
-      first: "Bastien",
-      last: "Lautruche",
-    },
-    levels: {
-      artisan: "9",
-      melee: "20",
-      archer: "4",
-      mage: "923",
-    },
-  },
 ];
 
 const listRoles = [
@@ -153,7 +72,6 @@ export default {
         title: "Liste des quêtes",
         columns: [...tableColumns],
         data: [],
-        listAdventurers: [...tableAdventurers],
         listRoles: [...listRoles],
         listStatus: [...tableStatus]
       },

@@ -79,7 +79,7 @@
                 vertical-align: middle;
                 font-weight: 400;
               "
-              @click="searchModalVisible = true; searchAdv()"
+              @click="searchModalVisible = true; searchAdv(item)"
               ><i
                 class="tim-icons icon-pencil"
                 style="
@@ -97,10 +97,10 @@
             :show-close="true"
           >
             <div class="modal-content-data" style="vertical-align: top; overflow: hidden">
-            <select :v-model="classe" @change="searchAdv()">
+            <select v-model="classeSelected" @change="searchAdv(item)">
               <option
                 v-for="role in listRoles"
-                :value="role.name"
+                :value="role.id"
                 :key="role.id"
               >
                 {{role.name}}
@@ -117,19 +117,20 @@
                 <li v-for="a in searchProd(listAdventurers)" :key="a.id">
                   <table>
                     <tr>
-                      <td style="width: 80px">
+                      <!-- <td style="width: 80px">
                         <img
                           src="@/assets/img/hammer.png"
                           alt="artisan"
                           title="Artisan"
                         />&nbsp;{{ a.levels.artisan }}
-                      </td>
-                      <td>{{ a.name.first }}&nbsp;{{ a.name.last }}</td>
+                      </td> -->
+                      <td>niv. {{ a.classe.exp }}</td>
+                      <td>{{ a.prenom }}&nbsp;{{ a.nom }}</td>
                       <td style="text-align: end">
                         <i
                           class="tim-icons icon-double-right"
                           title="Ajouter"
-                          v-on:click="addAdv(item, a.id)"
+                          v-on:click="addAdv(item, a)"
                         ></i>
                       </td>
                     </tr>
@@ -143,11 +144,11 @@
                   <table>
                     <tr>
                       <td style="width: 80px">
-                        <img
+                        <!-- <img
                           src="@/assets/img/hammer.png"
                           alt="artisan"
                           title="Artisan"
-                        />&nbsp;{{ a.label }}
+                        /> -->
                       </td>
                       <td>{{ a.prenom }}&nbsp;{{ a.nom }}</td>
                       <td style="text-align: end">
@@ -217,8 +218,8 @@ export default {
       opened: [],
       searchModalVisible: false,
       search: "",
-      listAdventurers: [],
-      classe: 1
+      classeSelected: '1',
+      listAdventurers: []
     };
   },
   components: {
@@ -312,29 +313,31 @@ export default {
       })
       
     },
-    searchAdv() {
-      getAdventurersByClasse(this.classe).then(aventuriers => {
-        console.log(aventuriers);
-        console.log(this.classe);
-        this.listAdventurers = aventuriers;
+    searchAdv(item) {
+      getAdventurersByClasse(this.classeSelected).then(aventuriers => {
+        this.listAdventurers = this.getAdv(item, aventuriers);
       });
     },
-    getAdv(item) {
-      let list = this.listAdventurers;
+    getAdv(item, adventurers) {
+      let index = null;
       item.aventuriers.forEach(aventurier => {
-        list.splice(list.find(a => {
-          a.id = aventurier.id
-        }),1);
+        index = adventurers.findIndex(a => a.id == aventurier.id);
+        if(index != -1)
+          adventurers.splice(index,1);
       });
-      return list;
+      return adventurers;
     },
-    addAdv(item, id) {
-      console.log(item);
-      console.log(id);
-      console.log("to implement");
+    addAdv(item, adventurer) {
+      item.aventuriers.push(adventurer);
+      let index = this.listAdventurers.findIndex(a => a.id == adventurer.id);
+      if(index != -1)
+        this.listAdventurers.splice(index, 1);
     },
     removeAdv(item, id) {
-      item.aventuriers.splice(item.aventuriers.find(i => i.id == id), 1);
+      let index = item.aventuriers.findIndex(a => a.id == id);
+      if(index != -1)
+        item.aventuriers.splice(index, 1);
+      this.searchAdv(item);
     },
     getImg(icon) {
       let images = require.context("../assets/img/", false, /\.png$/);
