@@ -59,6 +59,6 @@ export const put = async (url, data, token) => {
     .catch(function (err) {
       console.error("PUT Error : ", err);
     });
-  
+
   return await result.json();
 };

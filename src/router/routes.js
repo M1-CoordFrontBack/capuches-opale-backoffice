@@ -4,13 +4,26 @@ import Layout from "@/layout/frontend/Layout.vue";
 import NotFound from "@/pages/NotFoundPage.vue";
 
 // Admin pages
-const Quests = () => import(/* webpackChunkName: "common" */ "@/pages/Quests.vue");
-const FrontQuests = () => import(/* webpackChunkName: "common" */ "@/pages/FrontOffice/FrontQuests.vue");
-const CreateQuest = () => import(/* webpackChunkName: "common" */ "@/pages/FrontOffice/CreateQuest.vue");
+const Quests = () =>
+  import(/* webpackChunkName: "common" */ "@/pages/Quests.vue");
+const FrontQuests = () =>
+  import(
+    /* webpackChunkName: "common" */ "@/pages/FrontOffice/FrontQuests.vue"
+  );
+const CreateQuest = () =>
+  import(
+    /* webpackChunkName: "common" */ "@/pages/FrontOffice/CreateQuest.vue"
+  );
 
 // Security
-const Login = () => import(/* webpackChunkName: "security" */"@/pages/FrontOffice/Security/Login.vue");
-const Register = () => import(/* webpackChunkName: "security" */"@/pages/FrontOffice/Security/Register.vue");
+const Login = () =>
+  import(
+    /* webpackChunkName: "security" */ "@/pages/FrontOffice/Security/Login.vue"
+  );
+const Register = () =>
+  import(
+    /* webpackChunkName: "security" */ "@/pages/FrontOffice/Security/Register.vue"
+  );
 
 const routes = [
   {
@@ -22,9 +35,9 @@ const routes = [
         path: "",
         name: "quêtes",
         component: Quests,
-        props: true
-      }
-    ]
+        props: true,
+      },
+    ],
   },
   {
     path: "/front",
@@ -34,19 +47,19 @@ const routes = [
       {
         path: "create-quest",
         name: "create-quest",
-        component: CreateQuest
+        component: CreateQuest,
       },
       {
         path: "quests",
         name: "front-quests",
         component: FrontQuests,
-        props: true
-      }
-    ]
+        props: true,
+      },
+    ],
   },
   { path: "*", component: NotFound },
-  {path: "/", name: "login", component: Login, props: true},
-  {path: "/register", name: "register", component: Register},
+  { path: "/", name: "login", component: Login, props: true },
+  { path: "/register", name: "register", component: Register },
 ];
 
 /**

@@ -79,7 +79,10 @@
                 vertical-align: middle;
                 font-weight: 400;
               "
-              @click="searchModalVisible = true; searchAdv(item)"
+              @click="
+                searchModalVisible = true;
+                searchAdv(item);
+              "
               ><i
                 class="tim-icons icon-pencil"
                 style="
@@ -96,16 +99,19 @@
             :centered="false"
             :show-close="true"
           >
-            <div class="modal-content-data" style="vertical-align: top; overflow: hidden">
-            <select v-model="classeSelected" @change="searchAdv(item)">
-              <option
-                v-for="role in listRoles"
-                :value="role.id"
-                :key="role.id"
-              >
-                {{role.name}}
-              </option>
-            </select>
+            <div
+              class="modal-content-data"
+              style="vertical-align: top; overflow: hidden"
+            >
+              <select v-model="classeSelected" @change="searchAdv(item)">
+                <option
+                  v-for="role in listRoles"
+                  :value="role.id"
+                  :key="role.id"
+                >
+                  {{ role.name }}
+                </option>
+              </select>
               <input
                 class="searchbar-input"
                 type="text"
@@ -113,7 +119,7 @@
                 placeholder="Search"
               />
               <br />
-              <ul style="overflow: auto; height:230px;">
+              <ul style="overflow: auto; height: 230px">
                 <li v-for="a in searchProd(listAdventurers)" :key="a.id">
                   <table>
                     <tr>
@@ -166,7 +172,7 @@
           </modal>
           <div v-if="item.aventuriers.length">
             <span v-for="a in item.aventuriers" :key="a.id"
-              >{{ a.nom + ' ' + a.prenom }}<br
+              >{{ a.nom + " " + a.prenom }}<br
             /></span>
           </div>
           <div v-else><span>Aucun</span></div>
@@ -176,14 +182,20 @@
         <td style="vertical-align: top">
           <b>Niveau minimum</b><br />
           <div v-if="item.metiers.length">
-          <div class="job-level" v-for="m in item.metiers" :key="m.id_requete + '-' + m.id_metier_classe">
-            <div>
-              <span class="nbr-badge nbr-badge-align">{{
-                m.exp_recommande.toLocaleString()
-              }}</span
-              ><span class="nbr-title">{{metierName(m.id_metier_classe)}}</span>
+            <div
+              class="job-level"
+              v-for="m in item.metiers"
+              :key="m.id_requete + '-' + m.id_metier_classe"
+            >
+              <div>
+                <span class="nbr-badge nbr-badge-align">{{
+                  m.exp_recommande.toLocaleString()
+                }}</span
+                ><span class="nbr-title">{{
+                  metierName(m.id_metier_classe)
+                }}</span>
+              </div>
             </div>
-          </div>
           </div>
           <div v-else>
             <span>Aucun niveau défini</span>
@@ -209,7 +221,11 @@
 </template>
 <script>
 import Modal from "@/components/Modal";
-import { updateStatus, getAdventurersByClasse, updateAdventurers } from "@/utils/services/quests.js";
+import {
+  updateStatus,
+  getAdventurersByClasse,
+  updateAdventurers,
+} from "@/utils/services/quests.js";
 
 export default {
   name: "base-table",
@@ -218,8 +234,8 @@ export default {
       opened: [],
       searchModalVisible: false,
       search: "",
-      classeSelected: '1',
-      listAdventurers: []
+      classeSelected: "1",
+      listAdventurers: [],
     };
   },
   components: {
@@ -291,52 +307,48 @@ export default {
       }
     },
     metierName(id) {
-      switch(id) {
+      switch (id) {
         case 1:
-          return 'Mêlée'
+          return "Mêlée";
         case 2:
-          return 'Archer'
+          return "Archer";
         case 3:
-          return 'Mage'
+          return "Mage";
         case 4:
-          return 'Artisan'
+          return "Artisan";
       }
     },
     log(value) {
       console.log(value);
     },
     changeStatus(event, item, column) {
-      updateStatus(item.id, event.target.value.toLowerCase()).then(res => {
-        if(res) {
+      updateStatus(item.id, event.target.value.toLowerCase()).then((res) => {
+        if (res) {
           item[column.id] = event.target.value;
         }
-      })
-      
+      });
     },
     searchAdv(item) {
-      getAdventurersByClasse(this.classeSelected).then(aventuriers => {
+      getAdventurersByClasse(this.classeSelected).then((aventuriers) => {
         this.listAdventurers = this.getAdv(item, aventuriers);
       });
     },
     getAdv(item, adventurers) {
       let index = null;
-      item.aventuriers.forEach(aventurier => {
-        index = adventurers.findIndex(a => a.id == aventurier.id);
-        if(index != -1)
-          adventurers.splice(index,1);
+      item.aventuriers.forEach((aventurier) => {
+        index = adventurers.findIndex((a) => a.id == aventurier.id);
+        if (index != -1) adventurers.splice(index, 1);
       });
       return adventurers;
     },
     addAdv(item, adventurer) {
       item.aventuriers.push(adventurer);
-      let index = this.listAdventurers.findIndex(a => a.id == adventurer.id);
-      if(index != -1)
-        this.listAdventurers.splice(index, 1);
+      let index = this.listAdventurers.findIndex((a) => a.id == adventurer.id);
+      if (index != -1) this.listAdventurers.splice(index, 1);
     },
     removeAdv(item, id) {
-      let index = item.aventuriers.findIndex(a => a.id == id);
-      if(index != -1)
-        item.aventuriers.splice(index, 1);
+      let index = item.aventuriers.findIndex((a) => a.id == id);
+      if (index != -1) item.aventuriers.splice(index, 1);
       this.searchAdv(item);
     },
     getImg(icon) {
@@ -344,9 +356,9 @@ export default {
       return images("./" + icon + ".png");
     },
     getStatusStyle(item, column) {
-      if(column.hasOwnProperty("id") && column.id) {
+      if (column.hasOwnProperty("id") && column.id) {
         const value = item[column.id.toLowerCase()];
-        if(value) {
+        if (value) {
           switch (value.toLowerCase()) {
             case "validée":
               return "badge badge-cyan";
@@ -362,9 +374,7 @@ export default {
               return "badge";
           }
         }
-         
       }
-     
     },
     getItemIcon(item, column) {
       const value = item[column.id.toLowerCase()];

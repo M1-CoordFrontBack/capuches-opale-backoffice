@@ -3,16 +3,14 @@
     <div class="main-panel">
       <Header />
 
-      <dashboard-content @click.native="toggleSidebar">
-
-      </dashboard-content>
+      <dashboard-content @click.native="toggleSidebar"> </dashboard-content>
 
       <content-footer></content-footer>
     </div>
   </div>
 </template>
 <style lang="scss">
-  @import "../../assets/sass/black-dashboard.scss";
+@import "../../assets/sass/black-dashboard.scss";
 </style>
 <script>
 import Header from "../../components/Header";
@@ -24,14 +22,14 @@ export default {
     Header,
     ContentFooter,
     DashboardContent,
-    MobileMenu
+    MobileMenu,
   },
   methods: {
     toggleSidebar() {
       if (this.$sidebar.showSidebar) {
         this.$sidebar.displaySidebar(false);
       }
-    }
-  }
+    },
+  },
 };
 </script>

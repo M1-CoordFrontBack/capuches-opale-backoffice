@@ -21,7 +21,7 @@
 <script>
 import { BaseTable } from "@/components";
 import NotificationTemplate from "@/pages/Notifications/NotificationTemplateCreateQuest";
-import { getQuests } from "@/utils/services/quests.js"
+import { getQuests } from "@/utils/services/quests.js";
 
 const tableColumns = [
   { name: "Titre", width: "55%", id: "titre" },
@@ -59,7 +59,7 @@ const tableStatus = [
   "Validée",
   "Réussie",
   "Refusée",
-  "Echouée"
+  "Echouée",
 ];
 
 export default {
@@ -73,20 +73,20 @@ export default {
         columns: [...tableColumns],
         data: [],
         listRoles: [...listRoles],
-        listStatus: [...tableStatus]
+        listStatus: [...tableStatus],
       },
       referer: this.$route.query.rf,
       notifications: {
-        topCenter: false
-      }
+        topCenter: false,
+      },
     };
-  }, 
+  },
   mounted() {
     if (this.referer) {
-      this.notifyVue('top', 'right');
+      this.notifyVue("top", "right");
     }
 
-    getQuests().then(data => {
+    getQuests().then((data) => {
       this.table1.data = data;
     });
   },
@@ -98,9 +98,9 @@ export default {
         horizontalAlign: horizontalAlign,
         verticalAlign: verticalAlign,
         type: "success",
-        timeout: 3500
+        timeout: 3500,
       });
-    }
-  }
+    },
+  },
 };
 </script>
