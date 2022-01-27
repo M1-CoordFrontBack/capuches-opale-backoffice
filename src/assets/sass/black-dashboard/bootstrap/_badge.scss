@@ -4,7 +4,7 @@
 // `background-color`.
 
 .badge {
-  background-color: #B6B6B6;
+  background-color: #b6b6b6;
   display: inline-block;
   padding: $badge-padding-y $badge-padding-x;
   font-size: 12px;
@@ -14,7 +14,7 @@
   white-space: nowrap;
   vertical-align: baseline;
   @include border-radius($badge-border-radius);
-  border: 1px solid #B6B6B6;
+  border: 1px solid #b6b6b6;
   color: white;
   border: none;
   padding: 5px;
@@ -57,7 +57,6 @@
 //
 // Contextual variations (linked badges get darker on :hover).
 
-
 .badge-cyan {
   background-color: #36b9cc;
 }
@@ -76,4 +75,8 @@
 
 .badge-yellow {
   background-color: #f6c23e;
+}
+
+.badge-front {
+  padding: 8px;
 }
