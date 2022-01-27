@@ -20,7 +20,7 @@
 <script>
 import { BaseTable } from "@/components";
 import NotificationTemplate from "@/pages/Notifications/NotificationTemplateCreateQuest";
-import { getQuestsByUser } from "@/utils/services/quests.js"
+import { getQuestsByUser } from "@/utils/services/quests.js";
 
 const tableColumns = [
   { name: "Titre", width: "55%", id: "titre" },
@@ -148,14 +148,14 @@ export default {
       },
       referer: this.$route.query.rf,
       notifications: {
-        topCenter: false
-      }
+        topCenter: false,
+      },
     };
   },
   mounted() {
-    getQuestsByUser().then(data => this.table1.data = data);
+    getQuestsByUser().then((data) => (this.table1.data = data));
     if (this.referer) {
-      this.notifyVue('top', 'right');
+      this.notifyVue("top", "right");
     }
   },
   methods: {
@@ -166,13 +166,13 @@ export default {
         horizontalAlign: horizontalAlign,
         verticalAlign: verticalAlign,
         type: "success",
-        timeout: 3500
+        timeout: 3500,
       });
-    }
-  }
+    },
+  },
 };
 </script>
 <style></style>
 <style lang="scss" scoped>
-  @import "../../assets/sass/front-office/FrontQuest";
+@import "../../assets/sass/front-office/FrontQuest";
 </style>
