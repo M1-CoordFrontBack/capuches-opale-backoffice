@@ -31,10 +31,10 @@ router.beforeEach((to, from, next) => {
     if (to.name === 'quêtes' && user && user.role_id !== 3) {
       next({ name: 'front-quests' })
     }
+    
     if (to.name === 'front-quests' && user && user.role_id !== 2) {
       next({ name: 'quêtes' })
     }
-
     const parsedJwt = localStorageService.parseToken(token);
     if (parsedJwt !== undefined) {
       if (Math.floor(Date.now() / 1000) > parsedJwt.exp) {
