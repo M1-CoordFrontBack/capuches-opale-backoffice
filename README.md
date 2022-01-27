@@ -7,6 +7,8 @@ This template should help get you started developing with Vue 3 in Vite. The tem
 - [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar)
 
 ## How to setup and start
+Use Node 12
+
 For the awesome people using MacOS / Linux
 ```sh
 npm i && npm run dev
