@@ -9,7 +9,7 @@ export const getQuests = () => {
 };
 
 export const getQuestsByUser = () => {
-  const userId = localStorageService.getUserId(),
+  const userId = localStorageService.getUserId();
   return get(
     `https://quiet-fortress-49850.herokuapp.com/api/requete/clients/${userId}`,
     localStorageService.getAccessToken()
